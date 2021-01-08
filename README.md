@@ -1,1 +1,1 @@
-CS 313 PHP Base Code
+CSE 341 Web Backend Development II
