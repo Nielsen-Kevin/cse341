@@ -1,8 +1,8 @@
 <?php require $_SERVER['DOCUMENT_ROOT'] . '/template/header.php'; ?>
 <main>
 	<div class="img-grid">
-		<img src="week02/images/theparty.jpg" class="responsive white-border">
-		<img src="week02/images/smoke.jpg" class="responsive white-border">
+		<img src="week02/images/theparty.jpg" id="popup1" alt="Troop with firemen" class="responsive white-border">
+		<img src="week02/images/smoke.jpg" id="popup2"  alt="Smoke in the trees" class="responsive white-border">
 	</div>
 	<h1>Towards the Fire</h1>
 	<h3 class="sub-title">True Story by Kevin Nielsen</h3>
@@ -56,4 +56,11 @@
 			fear, just one purpose and focus to get to safety.</p>
 	</section>
 </main>
+<!-- The Modal -->
+<div id="myModal" class="modal">
+	<span class="close">&times;</span>
+	<img class="modal-content" id="imgtemp">
+</div>
+<script type="application/javascript" src="js/modal.js"></script>
+
 <?php require $_SERVER['DOCUMENT_ROOT'] . '/template/footer.php'; ?>
