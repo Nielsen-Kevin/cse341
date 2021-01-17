@@ -1,0 +1,24 @@
+* {
+	margin: 5px auto;
+}
+
+body {
+	padding: 3em;
+	font-size: 2em;
+}
+
+#first {
+	background-color: red;
+}
+#second {
+	background-color: green;
+}
+#third {
+	background-color: blue;
+}
+
+#first:hover,
+#second:hover,
+#third:hover {
+	font-weight: bold;
+}

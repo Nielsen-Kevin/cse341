@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Week02 Team Activity</title>
+		<link rel="stylesheet" href="team.css">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+		<script src="team.js"></script>
+	</head>
+	<body>
+		<div class="container">
+			<div class="row">
+				<div id="first" class="col">first div</div>
+				<div id="second" class="col">second div</div>
+				<div id="third" class="col">third div</div>
+			</div>
+			<button onclick="clickedMe();">Click Me</button>
+
+			<div class="row">
+				<input type="text" id="color-change" >
+				<button onclick="colorChange();">Change color</button>
+			</div>
+
+			<div class="row">
+				<input type="text" id="color-change-jq" >
+				<button onclick="colorChangeJQ();">Change color with jQuery</button>
+			</div>
+
+			<div class="row">
+				<button onclick="toggleHide('#third');">Toggle Hide</button>
+			</div>
+		</div>
+	</body>
+</html>
