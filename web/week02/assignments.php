@@ -1,8 +1,8 @@
 <?php require $_SERVER['DOCUMENT_ROOT'] . '/template/header.php'; ?>
 <?php
 // catch values
-$assignments = is_set($assignments) ? $assignments : [];
-$projects = is_set($projects) ? $projects : [];
+$assignments = isset($assignments) ? $assignments : [];
+$projects = isset($projects) ? $projects : [];
 ?>
 <main>
 	<h1>CSE 341 Assignments</h1>
