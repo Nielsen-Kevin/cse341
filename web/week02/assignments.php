@@ -1,25 +1,8 @@
 <?php require $_SERVER['DOCUMENT_ROOT'] . '/template/header.php'; ?>
 <?php
-// Assignments List
-$assignments = [
-	['week'=>'Week 01', 'url'=>'week1/hello.html', 'title'=>'Hello World'],
-	['week'=>'Week 02', 'url'=>'/', 'title'=>'Homepage'],
-	['week'=>'Week 03', 'url'=>'#', 'title'=>'Shopping Cart'],
-	['week'=>'Week 04', 'url'=>'#', 'title'=>'DB Setup'],
-	['week'=>'Week 05', 'url'=>'#', 'title'=>'DB Access'],
-	['week'=>'Week 06', 'url'=>'#', 'title'=>'DB Update'],
-	['week'=>'Week 08', 'url'=>'#', 'title'=>'Hello World'],
-	['week'=>'Week 09', 'url'=>'#', 'title'=>'Postal Rate Calculator'],
-	['week'=>'Week 10', 'url'=>'#', 'title'=>'Milestone 1'],
-	['week'=>'Week 11', 'url'=>'#', 'title'=>'Milestone 2'],
-	['week'=>'Week 12', 'url'=>'#', 'title'=>'Milestone 3'],
-];
-
-$projects = [
-	['week'=>'Week 07', 'url'=>'#', 'title'=>'Project 2'],
-	['week'=>'Week 14', 'url'=>'#', 'title'=>'Project 2']
-];
-
+// catch values
+$assignments = is_set($assignments) ? $assignments : [];
+$projects = is_set($projects) ? $projects : [];
 ?>
 <main>
 	<h1>CSE 341 Assignments</h1>
