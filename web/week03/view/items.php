@@ -4,6 +4,7 @@
 	<div class="item-grid">
 		<?php foreach($items_list as $item) { ?>
 		<div class="card">
+			<img src="images/<?=$item['img']?>" alt="<?=$item['name'];?>" class="responsive">
 			<form action="?act=cart-add" method="post">
 				<div id="item-info">
 					<h2 class="itemTitle"><?=$item['name'];?></h2>
@@ -17,9 +18,9 @@
 						<div class="field-group options">
 						<?php foreach($item['attribute'] as $i => $option) { ?>
 							<?php if($item['type'] == 'radio') { ?>
-							<label> <input type="radio" name="option[]" value="<?=$option?>"> <?=$option?></label><br>
+							<label> <input type="radio" name="option[]" value="<?=$option?>"> <?=$option?></label>
 							<?php } elseif($item['type'] == 'checkbox') { ?>
-							<label> <input type="checkbox" name="option[]" value="<?=$option?>"> <?=$option?></label><br>
+							<label> <input type="checkbox" name="option[]" value="<?=$option?>"> <?=$option?></label>
 							<?php } elseif($item['type'] == 'text') { ?>
 							<label for="opt_<?=$item['itemid'];?>_<?=$i?>"><?=$option?>:</label><input type="text" name="option[]" id="opt_<?=$item['itemid'];?>_<?=$i?>">
 							<?php } ?>

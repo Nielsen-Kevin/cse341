@@ -125,8 +125,6 @@ label, .bold {
 	margin-top: 2em;
 }
 img {
-	box-shadow: 0 10px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
-
 	&.responsive {
 		width: 100%;
 		height: auto;
@@ -135,6 +133,10 @@ img {
 	&.white-border {
 		background-color: white;
 		padding: 10px;
+	}
+
+	&.shadow {
+		box-shadow: 0 10px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
 	}
 }
 

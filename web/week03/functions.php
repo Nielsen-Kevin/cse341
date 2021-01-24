@@ -4,12 +4,12 @@
 --------------------*/
 
 $items_list = [
-	['itemid' => 2882, 'price' => 34.98, 'name' => 'Item1', 'description' => ''],
-	['itemid' => 1234, 'price' => 99.98, 'name' => 'Item2', 'description' => ''],
-	['itemid' => 987, 'price' => 0.50, 'name' => 'Item3', 'description' => ''],
-	['itemid' => 2882, 'price' => 55.55, 'name' => 'Item1 with option', 'description' => 'Imprint your name on the front.', 'attribute' => ['Your Name'], 'type' => 'text'],
-	['itemid' => 1234, 'price' => 100.00, 'name' => 'Item2 with option', 'description' => '', 'attribute' => ['RED','BLUE'], 'type' => 'checkbox'],
-	['itemid' => 987, 'price' => 1.00, 'name' => 'Item3 with option', 'description' => 'Choose your color', 'attribute' => ['RED','BLUE'], 'type' => 'radio']
+	['itemid'=> 2882, 'price'=> 1.00, 'name'=> 'Brownie', 'img'=> 'brownie.jpg', 'description'=> 'Yummy chocolate brownies.'],
+	['itemid'=> 1234, 'price'=> 29.98, 'name'=> 'Deluxe Pizza', 'img'=> 'pizza.jpg','description'=> 'pizza with all the works'],
+	['itemid'=> 1987, 'price'=> 0.50, 'name'=> 'Chocolate Chip Cookie', 'img'=> 'cookies.jpg','description'=> ''],
+	['itemid'=> 2883, 'price'=> 55.55, 'name'=> 'Cake with Message', 'img'=> 'cake.jpg','description'=> 'Imprint your message on the top.', 'attribute'=> ['Your Message'], 'type'=> 'text'],
+	['itemid'=> 1235, 'price'=> 4.95, 'name'=> 'Mixed Donuts', 'img'=> 'donuts.jpg','description'=> '', 'attribute'=> ['Glazed','Suger','Chocolate'], 'type'=> 'checkbox'],
+	['itemid'=> 1988, 'price'=> 6.00, 'name'=> 'Cupcake', 'img'=>'cupcake.jpg', 'description'=> 'Cupcake with sprinkles or icing', 'attribute'=> ['Sprinkles','Icing'], 'type'=> 'radio']
 ];
 
 function getRecord($array, $id) {

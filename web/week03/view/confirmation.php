@@ -27,7 +27,15 @@
 				<div class="item heading right">Price</div>
 				<?php foreach($items as $item) { ?>
 					<div class="item"><?=$item['itemid'];?></div>
-					<div class="item"><?=$item['name'];?></div>
+					<div class="item"><?=$item['name'];?>
+					<?php if(isset($item['options'])) { ?>
+						<ul class='options'>
+							<?php foreach($item['options'] as $option) { ?>
+							<li><?php echo $option; ?></li>
+							<?php } ?>
+						</ul>
+					<?php } ?>
+					</div>
 					<div class="item center"><?=$item['qty'];?></div>
 					<div class="item right">$ <?=money($item['total']);?></div>
 				<?php } ?>
