@@ -1,0 +1,49 @@
+/* -------------------------------- 
+
+Navigation 
+
+-------------------------------- */
+
+/* navigation bar using flex */
+nav ul {
+	display: flex;
+	background-color: #FFF;
+	margin: 0;
+	padding: 0;
+}
+nav ul li {
+	flex: 1;
+	list-style-type: none;
+	border-right: 1px dashed #FFF;
+}
+nav ul li:last-child {
+	border-right: none;
+}
+nav ul li a {
+	display: block;
+	width: 100%;
+	text-align: center;
+	text-decoration: none;
+	line-height: 40px;
+	color: #fff;
+	text-transform: uppercase;
+	font-weight: bold;
+	background-size: 100% 200%;
+	background-image: linear-gradient(to bottom, #03a9f4 50%, #004b6d 50%);
+	transition: background-position 0.5s;
+}
+nav ul li a:hover {
+	text-decoration: none;
+	background-position: 0 -100%;
+	color: #fff;
+	transition: background-position 0.5s;
+}
+
+@include MQ(500px) {
+	/* Make links stack on smaller screens */
+	nav a {
+		float: none;
+		width: 100%;
+		border-bottom: 1px solid #000;
+	}
+}

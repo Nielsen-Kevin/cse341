@@ -17,7 +17,7 @@ switch ($action) {
 		$assignments = [
 			['week'=>'Week 01', 'url'=>'week1/hello.html', 'title'=>'Hello World'],
 			['week'=>'Week 02', 'url'=>'index.php', 'title'=>'Homepage'],
-			['week'=>'Week 03', 'url'=>'#', 'title'=>'Shopping Cart'],
+			['week'=>'Week 03', 'url'=>'week03/', 'title'=>'Shopping Cart'],
 			['week'=>'Week 04', 'url'=>'#', 'title'=>'DB Setup'],
 			['week'=>'Week 05', 'url'=>'#', 'title'=>'DB Access'],
 			['week'=>'Week 06', 'url'=>'#', 'title'=>'DB Update'],

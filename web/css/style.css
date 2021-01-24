@@ -178,6 +178,10 @@ footer .copyright {
 	header h1 {
 		font-size: 2.5em;
 	}
+	header p {
+		letter-spacing: 2px;
+		font-size: .8em;
+	}
 	/* Make links stack on smaller screens */
 	nav a {
 		float: none;
@@ -191,6 +195,7 @@ footer .copyright {
 		grid-template-columns: 1fr;
 	}
 }
+
 
 /******************************************************/
 

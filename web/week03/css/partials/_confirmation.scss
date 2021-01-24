@@ -1,0 +1,47 @@
+/* -------------------------------- 
+
+Confirmation
+
+-------------------------------- */
+
+.invoice {
+	background-color: #fff;
+	padding: 1rem;
+	width: 100%;
+	@include MQ(540px) {width: 500px;}
+	margin: 20px auto;
+	font-size: 1.1em;
+	color: #c1c1c1;
+
+	.info-list {
+		display: grid;
+		grid-gap: 1rem;
+		grid-template-columns: 1fr;
+		@include MQ(540px) {grid-template-columns: 1fr 1fr;}
+		align-items: start;
+	}
+	.info {
+		font-size: 1.1em;
+		padding: 5px 0;
+	}
+	
+	.item-list {
+		display: grid;
+		column-gap: 5px;
+		grid-template-columns: 60px 1fr 60px 80px;
+		align-items: start;
+	}
+	.item {
+		padding: 5px 10px;
+		border-bottom: #6b6a6a 1px solid;
+		color: #000000;
+		font-size: .7em;
+		@include MQ(540px) {font-size: 1em;}
+
+		&.heading {
+			font-size: .8em;
+			font-weight: normal;
+			color: #c1c1c1;
+		}
+	}
+}
