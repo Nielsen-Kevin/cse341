@@ -95,9 +95,10 @@ textarea {min-height:200px;}
 	color: #FFFFFF;
 	background-color: #179bd7;
 	border-radius: 5px;	
-	border: 0px;
+	border: 0;
 	font-size: .875rem;
 	font-weight: bold;
+	text-align: center;
 	cursor: pointer;
 	transition: background-color .5s;
 	&:hover {
@@ -108,8 +109,20 @@ textarea {min-height:200px;}
 }
 
 a.button {
-	padding: 8px 3rem;
+	display: block;
+	padding: 8px;
 	text-decoration: none;
+}
+
+.left {
+	a.button {
+		margin-right: auto;
+	}
+}
+.right {
+	a.button {
+		margin-left: auto;
+	}
 }
 
 label, .bold {

@@ -41,9 +41,14 @@
 				<div id="errorState" class="error"><?php if(isset($error['state'])){echo $error['state'];} ?></div>
 				<div id="errorZip" class="error"><?php if(isset($error['zip'])){echo $error['zip'];} ?></div>
 			</div>
-			<div class="right">
-				<input type="hidden" name="action" value="checkout">
-				<input type="submit" name="submit" value="Checkout" class="button">
+			<div class="button-grid">
+				<div class="left">
+					<a href="?act=cart" class="button">Return to Cart</a>
+				</div>
+				<div class="right">
+					<input type="hidden" name="action" value="checkout">
+					<input type="submit" name="submit" value="Checkout" class="button">
+				</div>
 			</div>
 		</form>
 	</main>

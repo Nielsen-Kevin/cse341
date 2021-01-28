@@ -114,6 +114,12 @@ switch ($action) {
 			$option = filter_input(INPUT_POST, 'option', FILTER_SANITIZE_STRING, FILTER_REQUIRE_ARRAY);
 	
 			if (isset($id) && !empty($qty)) {
+
+				if(is_array($option)) {
+					// Put array through a cleaner
+					$option = array_filter($option, fn($value) => !is_null($value) && $value !== '');
+				}
+
 				addCartItem($id, $qty, (!empty($option) ? $option : false));
 			}
 			// Redirect to this controller for default action

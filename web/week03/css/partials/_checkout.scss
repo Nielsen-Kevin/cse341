@@ -30,6 +30,12 @@ Checkout
 	.half {
 		grid-template-columns: auto auto;
 	}
+
+	.button-grid {
+		display: grid;
+		grid-gap: 1rem;
+		grid-template-columns: 1fr 1fr;
+	}
 }
 
 #errorAddress {

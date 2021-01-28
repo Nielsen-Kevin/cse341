@@ -41,6 +41,10 @@
 		<div class="center">Your cart is empty.</div>
 	<?php } ?>
 
+	<p class="center">
+		<a href="." class="">Continue Shopping</a>
+	</p>
+
 </main>
 <script src="cart.js"></script>
 <?php require $_SERVER['DOCUMENT_ROOT'] . '/week03/view/footer.php'; ?>

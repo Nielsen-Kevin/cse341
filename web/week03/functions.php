@@ -27,6 +27,7 @@ function money($number) {
 }
 
 function addCartItem($itemid, $qty = 1, $option = false) {
+
 	if(!empty($_SESSION['cart'])) {
 		
 		foreach($_SESSION['cart'] as $id => $item) {
