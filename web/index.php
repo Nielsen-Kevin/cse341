@@ -15,11 +15,11 @@ switch ($action) {
 	case 'assignments':
 		// Assignment List
 		$assignments = [
-			['week'=>'Week 01', 'url'=>'week1/hello.html', 'title'=>'Hello World'],
+			['week'=>'Week 01', 'url'=>'week01/hello.html', 'title'=>'Hello World'],
 			['week'=>'Week 02', 'url'=>'index.php', 'title'=>'Homepage'],
 			['week'=>'Week 03', 'url'=>'week03/', 'title'=>'Shopping Cart'],
-			['week'=>'Week 04', 'url'=>'#', 'title'=>'DB Setup'],
-			['week'=>'Week 05', 'url'=>'#', 'title'=>'DB Access'],
+			['week'=>'Week 04', 'url'=>'week04/', 'title'=>'DB Setup'],
+			['week'=>'Week 05', 'url'=>'week05/', 'title'=>'DB Access'],
 			['week'=>'Week 06', 'url'=>'#', 'title'=>'DB Update'],
 			['week'=>'Week 08', 'url'=>'#', 'title'=>'Hello World'],
 			['week'=>'Week 09', 'url'=>'#', 'title'=>'Postal Rate Calculator'],

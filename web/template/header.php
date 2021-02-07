@@ -14,6 +14,6 @@
 	<nav>
 		<ul>
 			<li><a href="index.php" title="Home">Home</a></li>
-			<li><a href="?action=assignments" class="right" title="CSE 341 Assignments">Assignments</a></li>
+			<li><a href="?action=assignments" title="CSE 341 Assignments">Assignments</a></li>
 		</ul>
 	</nav>

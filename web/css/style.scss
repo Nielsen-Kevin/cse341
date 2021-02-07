@@ -1,13 +1,10 @@
 //@import "partials/reset";
-@import "../../css/partials/prefix-mixins";
-@import "../../css/partials/layout"; // responsive grid and media queries
-@import "../../css/partials/header";
-@import "../../css/partials/footer";
-@import "../../css/partials/nav";
-@import "partials/items";
-@import "partials/cart";
-@import "partials/checkout";
-@import "partials/confirmation";
+@import "partials/prefix-mixins";
+@import "partials/layout"; // responsive grid and media queries
+@import "partials/header";
+@import "partials/footer";
+@import "partials/nav";
+@import "partials/modal";
 
 * {
 	box-sizing: border-box;
@@ -127,4 +124,70 @@ a.button {
 
 label, .bold {
 	font-weight:bold;
+}
+
+/* Home images */
+.img-grid {
+	display: grid;
+	grid-gap: 1rem;
+	grid-template-columns: 1fr 1fr;
+	justify-content: center;
+	margin-top: 2em;
+}
+img {
+	&.responsive {
+		width: 100%;
+		height: auto;
+	}
+
+	&.white-border {
+		background-color: white;
+		padding: 10px;
+	}
+
+	&.shadow {
+		box-shadow: 0 10px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+	}
+}
+/* for Modal image on home */
+#popup1,
+#popup2 {
+	transition: filter 0.75s;
+	&:hover {
+		filter: grayscale(100%);
+		transition: filter 0.75s;
+		cursor: pointer;
+	}
+}
+
+/* List Grid Assignments */
+.grid {
+	display: grid;
+	grid-row-gap: 0.5rem;
+	grid-template-columns: 1fr 1fr 1fr 1fr;
+	justify-content: center;
+}
+ul.grid {
+	text-align: center;
+	list-style-position: inside;
+	margin-left: -50px;
+	list-style-type: none;
+	font-size: 2em;
+}
+div.sub-title {
+	font-size: 14px;
+}
+
+@media screen and (max-width: 800px) {
+	.grid {
+		grid-template-columns: 1fr 1fr 1fr;
+	}
+}
+@media screen and (max-width: 500px) {
+	.grid {
+		grid-template-columns: 1fr 1fr;
+	}
+	.img-grid {
+		grid-template-columns: 1fr;
+	}
 }

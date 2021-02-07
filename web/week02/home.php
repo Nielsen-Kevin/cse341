@@ -1,8 +1,8 @@
 <?php require $_SERVER['DOCUMENT_ROOT'] . '/template/header.php'; ?>
 <main>
 	<div class="img-grid">
-		<img src="week02/images/theparty.jpg" id="popup1" alt="Troop with firemen" class="responsive white-border">
-		<img src="week02/images/smoke.jpg" id="popup2"  alt="Smoke in the trees" class="responsive white-border">
+		<img src="week02/images/theparty.jpg" id="popup1" alt="Troop with firemen" class="responsive white-border shadow">
+		<img src="week02/images/smoke.jpg" id="popup2"  alt="Smoke in the trees" class="responsive white-border shadow">
 	</div>
 	<h1>Towards the Fire</h1>
 	<h3 class="sub-title">True Story by Kevin Nielsen</h3>
