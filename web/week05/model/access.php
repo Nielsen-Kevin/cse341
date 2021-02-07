@@ -4,11 +4,11 @@
 #----------------------------------------#
 
 // Get Album keys based on album id
-function getAlbumKeys($albumId) {
+function getAlbumKeys($album_id) {
 	global $db;
-	$sql = 'SELECT accessId, password FROM project01.access WHERE albumId = :albumId';
+	$sql = 'SELECT access_id, password FROM project01.access WHERE album_id = :album_id';
 	$stmt = $db->prepare($sql);
-	$stmt->bindValue(':albumId', $albumId, PDO::PARAM_INT);
+	$stmt->bindValue(':album_id', $album_id, PDO::PARAM_INT);
 	$stmt->execute();
 	$rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
 	$stmt->closeCursor();

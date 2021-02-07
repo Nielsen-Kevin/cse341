@@ -4,13 +4,13 @@
 #----------------------------------------#
 
 // Get specific Image based on id
-function getImage($imageId) {
+function getImage($image_id) {
 	global $db;
-	$sql = 'SELECT i.albumId, i.imageTitle, i.imageCaption, i.imageName, i.imagePrivate, i.imageShareKey, a.userId 
-	FROM project01.image i LEFT JOIN album a ON i.albumId = a.albumId
-	WHERE imageId = :imageId LIMIT 1';
+	$sql = 'SELECT i.album_id, i.image_title, i.image_caption, i.image_name, i.image_private, i.image_share_key, a.user_id 
+	FROM project01.image i LEFT JOIN album a ON i.album_id = a.album_id
+	WHERE image_id = :image_id LIMIT 1';
 	$stmt = $db->prepare($sql);
-	$stmt->bindValue(':imageId', $imageId, PDO::PARAM_INT);
+	$stmt->bindValue(':image_id', $image_id, PDO::PARAM_INT);
 	$stmt->execute();
 	// fetch returns single record
 	$row = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -19,11 +19,11 @@ function getImage($imageId) {
 }
 
 // Get specific Image based on id
-function getImageByShareKey($imageShareKey) {
+function getImageByShareKey($image_share_key) {
 	global $db;
-	$sql = 'SELECT albumId, imageTitle, imageCaption, imageName, imagePrivate FROM project01.image WHERE imageShareKey = :imageShareKey LIMIT 1';
+	$sql = 'SELECT album_id, image_title, image_caption, image_name, image_private FROM project01.image WHERE image_share_key = :image_share_key LIMIT 1';
 	$stmt = $db->prepare($sql);
-	$stmt->bindValue(':imageShareKey', $imageShareKey, PDO::PARAM_STR);
+	$stmt->bindValue(':image_share_key', $image_share_key, PDO::PARAM_STR);
 	$stmt->execute();
 	// fetch returns single record
 	$row = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -34,9 +34,9 @@ function getImageByShareKey($imageShareKey) {
 // Get All Image
 function getAllImages() {
 	global $db;
-	$sql = 'SELECT imageId, albumId, imageTitle, imageCaption, imageName, imagePrivate, imageShareKey, imageOrder FROM project01.image';
+	$sql = 'SELECT image_id, album_id, image_title, image_caption, image_name, image_private, image_share_key, image_order FROM project01.image';
 	$stmt = $db->prepare($sql);
-	$stmt->bindValue(':imageId', $imageId, PDO::PARAM_INT);
+	$stmt->bindValue(':image_id', $image_id, PDO::PARAM_INT);
 	$stmt->execute();
 	$rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
 	$stmt->closeCursor();
@@ -44,11 +44,11 @@ function getAllImages() {
 }
 
 // Get Images based on album id
-function getImagesByAlbum($albumId) {
+function getImagesByAlbum($album_id) {
 	global $db;
-	$sql = 'SELECT imageId, imageTitle, imageCaption, imageName, imagePrivate FROM project01.image WHERE albumId = :albumId ORDER BY imageOrder,imageTitle';
+	$sql = 'SELECT image_id, image_title, image_caption, image_name, image_private FROM project01.image WHERE album_id = :album_id ORDER BY image_order,image_title';
 	$stmt = $db->prepare($sql);
-	$stmt->bindValue(':albumId', $albumId, PDO::PARAM_INT);
+	$stmt->bindValue(':album_id', $album_id, PDO::PARAM_INT);
 	$stmt->execute();
 	$rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
 	$stmt->closeCursor();

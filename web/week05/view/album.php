@@ -2,13 +2,13 @@
 <main id="gallery">
 	
 	<div>
-		<h1><?=$album['albumTitle']?></h1>
-		<p class="description"><?=$album['albumDescription']?></p>
+		<h1><?=$album['album_title']?></h1>
+		<p class="description"><?=$album['album_description']?></p>
 
-		<?=$album['albumParent']?'<a href="?album='.$album['albumParent'].'">Back</a>':''?>
+		<?=$album['album_parent']?'<a href="?album='.$album['album_parent'].'">Back</a>':''?>
 
-		<?php if(!empty($img['albumShareKey'])) {
-			echo '<input value="'.$img['albumShareKey'].'">';
+		<?php if(!empty($img['album_share_key'])) {
+			echo '<input value="'.$img['album_share_key'].'">';
 		} ?>
 	</div>
 
@@ -17,13 +17,13 @@
 
 		<div class="card">
 			<div class="head">
-				<?php if($sub['albumPrivate']) { ?>
+				<?php if($sub['album_private']) { ?>
 						<div class="private">-private-</div><i class="fas fa-lock"></i>
 				<?php } ?>
-				<a href="?album=<?=$sub['albumId']?>"><i class="fas fa-images"></i></a>
+				<a href="?album=<?=$sub['album_id']?>"><i class="fas fa-images"></i></a>
 			</div>
 			<div class="body">
-				<h2 class="itemTitle"><a href="?album=<?=$sub['albumId']?>"><?=$sub['albumTitle']?></a></h2>
+				<h2 class="itemTitle"><a href="?album=<?=$sub['album_id']?>"><?=$sub['album_title']?></a></h2>
 			</div>
 		</div>
 
@@ -36,17 +36,17 @@
 		<?php } else { ?>
 			<?php foreach ($images as $img) { ?>
 				<div class="card">
-					<?php if($img['imagePrivate']) { ?>
+					<?php if($img['image_private']) { ?>
 						<div class="private">-private-</div><i class="fas fa-lock"></i>
 					<?php } ?>
-					<img src="images/<?=$img['imageName']?>" alt="<?=$img['imageTitle'];?>" class="responsive">
+					<img src="images/<?=$img['image_name']?>" alt="<?=$img['image_title'];?>" class="responsive">
 					<div class="body">
-					<a href="?image=<?=$img['imageId']?>">
-						<h2><?=$img['imageTitle']?></h2>
-						<?=$img['imageCaption']?>
+					<a href="?image=<?=$img['image_id']?>">
+						<h2><?=$img['image_title']?></h2>
+						<?=$img['image_caption']?>
 					</a>
-						<?php if(!empty($img['imageShareKey'])) {
-							echo '<input value="'.$img['imageShareKey'].'">';
+						<?php if(!empty($img['image_share_key'])) {
+							echo '<input value="'.$img['image_share_key'].'">';
 						} ?>
 					</div>
 				</div>

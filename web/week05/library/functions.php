@@ -24,7 +24,7 @@ function loginRequired($loction = '/account/') {
 
 // Check if login and has adequate user level
 function minAccessRequired($level, $loction = '/account/') {
-	if( !(isset($_SESSION['loggedin']) && $_SESSION['userData']['userLevel'] >= $level) ) {
+	if( !(isset($_SESSION['loggedin']) && $_SESSION['userData']['user_level'] >= $level) ) {
 		// force them away
 		header('Location: '. $loction);
 		exit;
@@ -32,17 +32,17 @@ function minAccessRequired($level, $loction = '/account/') {
 }
 
 function accessRequired($level, $loction = '/account/') {
-	if( !(isset($_SESSION['loggedin']) && $_SESSION['userData']['userLevel'] == $level) ) {
+	if( !(isset($_SESSION['loggedin']) && $_SESSION['userData']['user_level'] == $level) ) {
 		// force them away
 		header('Location: '. $loction);
 		exit;
 	}
 }
 
-function accessPermission($albumId) {
+function accessPermission($album_id) {
 	if( !empty($_SESSION['keys']) && is_array($_SESSION['keys']) ) {
 		$activeKeys = $_SESSION['keys'];
-		if(in_array($albumId, $activeKeys)) {
+		if(in_array($album_id, $activeKeys)) {
 			return;
 		}
 	}
@@ -52,14 +52,14 @@ function accessPermission($albumId) {
 	exit;
 }
 
-function isAlbumOwner($userId) {
+function isAlbumOwner($user_id) {
 	//Is loginin
 	if(isset($_SESSION['loggedin']) && $_SESSION['loggedin']) {
 		//Is owner
-		if($_SESSION['userData']['userId'] == $userId) {
+		if($_SESSION['userData']['user_id'] == $user_id) {
 			return true;
 		//Is admin
-		} elseif($_SESSION['userData']['userLevel'] >= 3) {
+		} elseif($_SESSION['userData']['user_level'] >= 3) {
 			return true;
 		}
 	}

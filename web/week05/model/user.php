@@ -4,11 +4,11 @@
 #----------------------------------------#
 
 // Get specific User based on id
-function getUser($userId) {
+function getUser($user_id) {
 	global $db;
-	$sql = 'SELECT userId, userName, userEmail, userPassword, userLevel FROM project01.user WHERE userId = :userId LIMIT 1';
+	$sql = 'SELECT user_id, user_name, user_email, user_password, user_level FROM project01.user WHERE user_id = :user_id LIMIT 1';
 	$stmt = $db->prepare($sql);
-	$stmt->bindValue(':userId', $userId, PDO::PARAM_INT);
+	$stmt->bindValue(':user_id', $user_id, PDO::PARAM_INT);
 	$stmt->execute();
 	// fetch returns single record
 	$row = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -19,9 +19,9 @@ function getUser($userId) {
 // Get All User
 function getAllUser() {
 	global $db;
-	$sql = 'SELECT userId, userName, userEmail, userPassword, userLevel FROM project01.user';
+	$sql = 'SELECT user_id, user_name, user_email, user_password, user_level FROM project01.user';
 	$stmt = $db->prepare($sql);
-	$stmt->bindValue(':userId', $userId, PDO::PARAM_INT);
+	$stmt->bindValue(':user_id', $user_id, PDO::PARAM_INT);
 	$stmt->execute();
 	$rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
 	$stmt->closeCursor();
@@ -29,11 +29,11 @@ function getAllUser() {
 }
 
 // Get User  based on User id
-function getUserByUser($userId) {
+function getUserByUser($user_id) {
 	global $db;
-	$sql = 'SELECT userId, userName, userEmail, userPassword, userLevel FROM project01.user WHERE userId = :userId';
+	$sql = 'SELECT user_id, user_name, user_email, user_password, user_level FROM project01.user WHERE user_id = :user_id';
 	$stmt = $db->prepare($sql);
-	$stmt->bindValue(':userId', $userId, PDO::PARAM_INT);
+	$stmt->bindValue(':user_id', $user_id, PDO::PARAM_INT);
 	$stmt->execute();
 	$rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
 	$stmt->closeCursor();

@@ -4,11 +4,11 @@
 #----------------------------------------#
 
 // Get specific Album based on id
-function getAlbum($albumId) {
+function getAlbum($album_id) {
 	global $db;
-	$sql = 'SELECT userId, albumParent, albumTitle, albumDescription, albumPrivate, albumShareKey, albumOrder FROM project01.album WHERE albumId = :albumId LIMIT 1';
+	$sql = 'SELECT user_id, album_parent, album_title, album_description, album_private, album_share_key, album_order FROM project01.album WHERE album_id = :album_id LIMIT 1';
 	$stmt = $db->prepare($sql);
-	$stmt->bindValue(':albumId', $albumId, PDO::PARAM_INT);
+	$stmt->bindValue(':album_id', $album_id, PDO::PARAM_INT);
 	$stmt->execute();
 	// fetch returns single record
 	$row = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -17,11 +17,11 @@ function getAlbum($albumId) {
 }
 
 // Get Sub Albums
-function getSubAlbums($albumParent) {
+function getSubAlbums($album_parent) {
 	global $db;
-	$sql = 'SELECT albumId, userId, albumTitle, albumPrivate FROM project01.album WHERE albumParent = :albumParent ORDER BY albumOrder,albumTitle';
+	$sql = 'SELECT album_id, user_id, album_title, album_private FROM project01.album WHERE album_parent = :album_parent ORDER BY album_order,album_title';
 	$stmt = $db->prepare($sql);
-	$stmt->bindValue(':albumParent', $albumParent, PDO::PARAM_INT);
+	$stmt->bindValue(':album_parent', $album_parent, PDO::PARAM_INT);
 	$stmt->execute();
 	$rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
 	$stmt->closeCursor();
@@ -29,11 +29,11 @@ function getSubAlbums($albumParent) {
 }
 
 // Get Album  based on User id
-function getAlbumByUser($userId) {
+function getAlbumByUser($user_id) {
 	global $db;
-	$sql = 'SELECT albumId, userId, albumParent, albumTitle, albumDescription, albumPrivate, albumShareKey, albumOrder FROM project01.album WHERE userId = :userId';
+	$sql = 'SELECT album_id, user_id, album_parent, album_title, album_description, album_private, album_share_key, album_order FROM project01.album WHERE user_id = :user_id';
 	$stmt = $db->prepare($sql);
-	$stmt->bindValue(':userId', $userId, PDO::PARAM_INT);
+	$stmt->bindValue(':user_id', $user_id, PDO::PARAM_INT);
 	$stmt->execute();
 	$rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
 	$stmt->closeCursor();
@@ -43,7 +43,7 @@ function getAlbumByUser($userId) {
 // Get All Albums
 function getAllAlbums() {
 	global $db;
-	$sql = 'SELECT albumId, userId, albumParent, albumTitle, albumDescription, albumPrivate, albumShareKey, albumOrder FROM project01.album';
+	$sql = 'SELECT album_id, user_id, album_parent, album_title, album_description, album_private, album_share_key, album_order FROM project01.album';
 	$stmt = $db->prepare($sql);
 	$stmt->execute();
 	$rows = $stmt->fetchAll(PDO::FETCH_ASSOC);

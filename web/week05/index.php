@@ -39,16 +39,16 @@ switch ($action) {
 				break;
 			}
 			// Sanitize data coming in
-			$albumId = filter_input(INPUT_GET, 'album', FILTER_SANITIZE_NUMBER_INT);
+			$album_id = filter_input(INPUT_GET, 'album', FILTER_SANITIZE_NUMBER_INT);
 			$key = filter_input(INPUT_POST, 'key', FILTER_SANITIZE_STRING);
 
 			// Run basic checks, return if errors
-			if(empty($albumId) || empty($key)){
+			if(empty($album_id) || empty($key)){
 				$errors = [];
 				if (empty($key)) {
 					$errors['errorKey'] = '<span class="error">key is required.</span>';
 				}
-				if (empty($albumId)) {
+				if (empty($album_id)) {
 					$errors['errorAlbumId'] = '<span class="error">album Id is required.</span>';
 				}
 
@@ -56,7 +56,7 @@ switch ($action) {
 				break;
 			}
 			// Get key list for this album
-			$activeKeys = getAlbumKeys($albumId);
+			$activeKeys = getAlbumKeys($album_id);
 
 			// Check if user is found
 			if(empty($userData)) {
@@ -77,8 +77,8 @@ switch ($action) {
 				break;
 			}
 
-			// Add albumId to the key list
-			$_SESSION['keys'][] = $albumId;
+			// Add album_id to the key list
+			$_SESSION['keys'][] = $album_id;
 
 			if(isset($_SESSION['returnUrl'])) {
 				$returnUrl = $_SESSION['returnUrl'];
@@ -97,12 +97,12 @@ switch ($action) {
 		/*--------------------
 			Display image detail
 		--------------------*/
-		$imageId = filter_input(INPUT_GET, 'image', FILTER_SANITIZE_NUMBER_INT);
-		if ($imageId != NULL) {
-			$img = getImage($imageId);
-			$docTitle = $img['imageTitle'];
+		$image_id = filter_input(INPUT_GET, 'image', FILTER_SANITIZE_NUMBER_INT);
+		if ($image_id != NULL) {
+			$img = getImage($image_id);
+			$docTitle = $img['image_title'];
 
-			if($img['imagePrivate'] || isAlbumOwner($img['userId']) ){
+			if($img['image_private'] || isAlbumOwner($img['user_id']) ){
 				// Check if they have permission on current image
 				$docTitle = 'Private';
 				$isPrivate = 'This image is set to private and can not be viewed';
@@ -119,20 +119,20 @@ switch ($action) {
 		/*--------------------
 			Display Album
 		--------------------*/
-		$albumId = filter_input(INPUT_GET, 'album', FILTER_SANITIZE_NUMBER_INT);
-		if ($albumId == NULL) {
-			$albumId = 1;
+		$album_id = filter_input(INPUT_GET, 'album', FILTER_SANITIZE_NUMBER_INT);
+		if ($album_id == NULL) {
+			$album_id = 1;
 		}
-		$album = getAlbum($albumId);
+		$album = getAlbum($album_id);
 
-#TODO $album['userId'] == $_SESSION['userData']['userId']
-		if($album['albumPrivate'] || isAlbumOwner($album['userId']) ){
+#TODO $album['user_id'] == $_SESSION['userData']['user_id']
+		if($album['album_private'] || isAlbumOwner($album['user_id']) ){
 			// Check if they have permission on current album
-			accessPermission($albumId);
+			accessPermission($album_id);
 		}
-		$docTitle = $album['albumTitle'];
-		$images = getImagesByAlbum($albumId);
-		$subAlbums = getSubAlbums($albumId);
+		$docTitle = $album['album_title'];
+		$images = getImagesByAlbum($album_id);
+		$subAlbums = getSubAlbums($album_id);
 		include 'view/album.php';
 }
 
