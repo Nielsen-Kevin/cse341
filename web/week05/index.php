@@ -67,7 +67,7 @@ switch ($action) {
 			$passed = false;
 			// check each key
 			foreach($activeKeys as $access) {
-				if(!($key == $access['password'])) {
+				if($key == $access['password']) {
 					$passed = true;
 					break;
 				}

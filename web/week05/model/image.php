@@ -8,7 +8,7 @@ function getImage($image_id) {
 	global $db;
 	$sql = 'SELECT i.album_id, i.image_title, i.image_caption, i.image_name, i.image_private, i.image_share_key, a.user_id 
 	FROM project01.image i LEFT JOIN album a ON i.album_id = a.album_id
-	WHERE image_id = :image_id LIMIT 1';
+	WHERE i.image_id = :image_id LIMIT 1';
 	$stmt = $db->prepare($sql);
 	$stmt->bindValue(':image_id', $image_id, PDO::PARAM_INT);
 	$stmt->execute();
