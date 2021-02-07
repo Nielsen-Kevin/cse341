@@ -58,12 +58,6 @@ switch ($action) {
 			// Get key list for this album
 			$activeKeys = getAlbumKeys($album_id);
 
-			// Check if user is found
-			if(empty($userData)) {
-				$message = '<p class="error">No access key for this album.</p>';
-				break;
-			}
-
 			$passed = false;
 			// check each key
 			foreach($activeKeys as $access) {
@@ -94,9 +88,9 @@ switch ($action) {
 	break;
 
 	default:
-		/*--------------------
+		/*-------------------------
 			Display image detail
-		--------------------*/
+		--------------------------*/
 		$image_id = filter_input(INPUT_GET, 'image', FILTER_SANITIZE_NUMBER_INT);
 		if ($image_id != NULL) {
 			$img = getImage($image_id);
