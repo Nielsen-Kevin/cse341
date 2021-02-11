@@ -5,6 +5,9 @@ $db = dbConnect();
 if (($_SERVER['REQUEST_METHOD'] == 'GET')) {
 
 	if(isset($_GET['DELETE'])) {
+		$statement = $db->prepare('DELETE FROM team06.scripture_topic WHERE scripture_id = :id');
+		$statement -> execute(['id' => $_GET['DELETE']]);
+
 		$statement = $db->prepare('DELETE FROM team06.scriptures WHERE id = :id');
 		$statement -> execute(['id' => $_GET['DELETE']]);
 		header('Location: .');
