@@ -44,7 +44,7 @@ $all_topics = $db->query('SELECT s.scripture_id, t.name
 
 foreach($scriptures as $row) {
 	echo '<div><b>' . $row['book'] . ' ' . $row['chapter'] . ':' . $row['verse'] . '</b> - "' . $row['content'] . '"<br>';
-	echo "<a href='?DETETE=$row['id']'>remove<a>";
+	echo "<a href=\"?DETETE=$row['id']\">remove<a>";
 
 	foreach($all_topics as $topic_found) {
 		echo print_r($topic_found, true);
