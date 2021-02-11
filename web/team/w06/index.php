@@ -11,8 +11,8 @@ $all_topics = $db->query('SELECT s.scripture_id, t.name
 	ON s.topic_id = t.id', PDO::FETCH_ASSOC);
 
 foreach($all_topics as $t_id) {
-	foreach($scriptures as $id => $v) {
-		if($scriptures['id'] = $t_id['scripture_id']){
+	foreach($scriptures as $id => $curent) {
+		if($curent['id'] == $t_id['scripture_id']){
 			$scriptures[$id]['topics'][] = $t_id['name'];
 		}
 	}
