@@ -2,6 +2,14 @@
 require 'connections.php';
 $db = dbConnect();
 
+if (($_SERVER['REQUEST_METHOD'] == 'GET')) {
+
+	if(isset($_GET['DETETE'])) {
+		$statement = $db->prepare('DETETE INTO team06.scriptures (id) VALUES (:id)');
+		$statement -> execute(['id' => $_GET['DETETE']]);
+		header('Location: .';)
+	}
+}
 
 if (($_SERVER['REQUEST_METHOD'] == 'POST')) {
 
@@ -11,7 +19,7 @@ if (($_SERVER['REQUEST_METHOD'] == 'POST')) {
 		$statement -> execute(['name' => $_POST['new_topic']]);
 		$topicID = $db->lastInsertId();
 
-		$_POST['topics'].append($topicID);
+		$_POST['topics'][] = $topicID;
 	}
 
 	$statement = $db->prepare('INSERT INTO team06.scriptures (book, chapter, verse, content) VALUES (:book, :chapter, :verse, :content)');
@@ -36,6 +44,7 @@ $all_topics = $db->query('SELECT s.scripture_id, t.name
 
 foreach($scriptures as $row) {
 	echo '<div><b>' . $row['book'] . ' ' . $row['chapter'] . ':' . $row['verse'] . '</b> - "' . $row['content'] . '"<br>';
+	echo '<a href="?DETETE="'.$row['id'].'"><a>';
 
 	foreach($all_topics as $topic_found) {
 		echo print_r($topic_found, true);
