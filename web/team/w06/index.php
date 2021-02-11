@@ -5,7 +5,7 @@ $db = dbConnect();
 
 if (($_SERVER['REQUEST_METHOD'] == 'POST')) {
 
-	if(isset($_POST['new'] && !empty($_POST['new_topic'])) {
+	if(isset($_POST['new']) && !empty($_POST['new_topic'])) {
 		// add new new_topic
 		$statement = $db->prepare('INSERT INTO team06.topic (name) VALUES (:name)');
 		$statement -> execute(['name' => $_POST['new_topic']]);
