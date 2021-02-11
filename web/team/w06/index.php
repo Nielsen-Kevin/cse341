@@ -50,7 +50,7 @@ foreach($scriptures as $row) {
 	echo '<a href="?DELETE=' . $row['id'] . '">remove</a>';
 
 	foreach($all_topics as $topic_found) {
-		echo print_r($topic_found, true);
+		echo $row['id']. ' ' . $topic_found['scripture_id'];
 		echo '<br>';
 
 		if($row['id'] == $topic_found['scripture_id']) {
