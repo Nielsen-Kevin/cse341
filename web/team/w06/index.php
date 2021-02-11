@@ -1,5 +1,5 @@
 <?php
-require 'web/library/connections.php';
+require 'connections.php';
 $db;
 
 $topics = $db->query('SELECT id, name FROM team06.topic', PDO::FETCH_ASSOC);

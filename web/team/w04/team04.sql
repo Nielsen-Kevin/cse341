@@ -2,7 +2,7 @@ CREATE SCHEMA team04;
 
 CREATE TABLE team04.user (
  name VARCHAR(26) NOT NULL, 
- userID SERIAL NOT NULL PRIMARY KEY,
+ user_id SERIAL NOT NULL PRIMARY KEY,
  password VARCHAR(26) NOT NULL
  );
 
@@ -23,7 +23,7 @@ CREATE TABLE team04.conference (
 
 CREATE TABLE team04.notes (
   noteID SERIAL NOT NULL PRIMARY KEY,
-  userID INT NOT NULL REFERENCES team04.user(userID),
+  user_id INT NOT NULL REFERENCES team04.user(user_id),
   speakerID INT NOT NULL REFERENCES team04.speaker(speakerID),
   conferenceID INT NOT NULL REFERENCES team04.conference(conferenceID),
   content TEXT NOT NULL
