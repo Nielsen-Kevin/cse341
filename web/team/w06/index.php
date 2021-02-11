@@ -2,6 +2,20 @@
 require 'connections.php';
 $db = dbConnect();
 
+
+if (($_SERVER['REQUEST_METHOD'] == 'POST')) {
+	$statement = $db->prepare('INSERT INTO team06.scriptures (book, chapter, verse, content) VALUES (:book, :chapter, :verse, :content)');
+	$statement -> execute(['book' => $_POST['book'], 'chapter' => $_POST['chapter'], 'verse' => $_POST['verse'], 'content' => $_POST['content']]);
+	$scriptureID = $db->lastInsertId();
+
+	foreach ($_POST['topics'] as $topicID) {
+		//echo "Topic: $topicID, Scripture: $scriptureID <br>";
+		$statement = $db -> prepare('INSERT INTO team06.scripture_topic (topic_id, scripture_id) VALUES (?, ?)');
+		$statement -> execute([$topicID, $scriptureID]);
+	}
+}
+
+
 $topics = $db->query('SELECT id, name FROM team06.topic', PDO::FETCH_ASSOC);
 $scriptures = $db->query('SELECT id, book, chapter, verse, content FROM team06.scriptures', PDO::FETCH_ASSOC);
 
@@ -24,24 +38,7 @@ foreach($scriptures as $row) {
 	}
 	echo '</div><br><br><br><br>';
 }
-
-
-if (($_SERVER['REQUEST_METHOD'] == 'POST')) {
-	
-	//$id = filter_input(INPUT_GET, 'id', FILTER_INT, FILTER_SANITIZE_NUMBER_INT);
-
-	$statement = $db->prepare('INSERT INTO team06.scriptures (book, chapter, verse, content) VALUES (:book, :chapter, :verse, :content)');
-	$statement -> execute(['book' => $_POST['book'], 'chapter' => $_POST['chapter'], 'verse' => $_POST['verse'], 'content' => $_POST['content']]);
-	$scriptureID = $db->lastInsertId();
-
-	foreach ($_POST['topics'] as $topicID) {
-		//echo "Topic: $topicID, Scripture: $scriptureID <br>";
-		$statement = $db -> prepare('INSERT INTO team06.scripture_topic (topic_id, scripture_id) VALUES (?, ?)');
-		$statement -> execute([$topicID, $scriptureID]);
-	}
-}
 ?>
-
 <form method="POST">
 	<label>Book <input type='text' name='book'></label><br>
 	<label>Chapter <input type='text' name='chapter'></label><br>
@@ -54,4 +51,3 @@ if (($_SERVER['REQUEST_METHOD'] == 'POST')) {
 	<?php } ?>
 	<input type='submit' value='submit'>
 </from>
-
