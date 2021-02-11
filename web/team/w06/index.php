@@ -5,23 +5,22 @@ $db = dbConnect();
 $topics = $db->query('SELECT id, name FROM team06.topic', PDO::FETCH_ASSOC);
 $scriptures = $db->query('SELECT id, book, chapter, verse, content FROM team06.scriptures', PDO::FETCH_ASSOC);
 
-$stmt = $db->prepare('SELECT t.name 
+$all_topics = $db->query('SELECT s.scripture_id, t.name 
 	FROM team06.scripture_topic s 
 	INNER JOIN team06.topic t 
-	ON s.topic_id = t.id WHERE scripture_id=:id');
+	ON s.topic_id = t.id', PDO::FETCH_ASSOC);
 
-$scripture_list =[];
-foreach($scriptures as $scripture) {
-	$stmt->bindValue(':id', $scripture['id'], PDO::PARAM_INT);
-	$stmt->execute();
-	$scripture['topics'] = $stmt->fetchAll(PDO::FETCH_ASSOC);
-	$scripture_list[] = $scripture;
+foreach($all_topics as $t_id) {
+	foreach($scriptures as $id => $v) {
+		if($scriptures['id'] = $t_id['scripture_id']){
+			$scriptures[$id]['topics'][] = $t_id['name'];
+		}
+	}
 }
-$stmt->closeCursor();
 
-
-print_r($scripture_list);
-
+echo '<pre>';
+print_r($scriptures);
+echo '</pre>';
 
 if (($_SERVER['REQUEST_METHOD'] == 'POST')) {
 	
