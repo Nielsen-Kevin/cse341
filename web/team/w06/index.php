@@ -28,7 +28,7 @@ if (($_SERVER['REQUEST_METHOD'] == 'POST')) {
 
 	$statement = $db->prepare('INSERT INTO team06.scriptures (book, chapter, verse, content) VALUES (:book, :chapter, :verse, :content)');
 	$statement -> execute(['book' => $_POST['book'], 'chapter' => $_POST['chapter'], 'verse' => $_POST['verse'], 'content' => $_POST['content']]);
-	$scriptureID = $db->lastInsertId("id");
+	$scriptureID = $db->lastInsertId();
 
 	foreach ($_POST['topics'] as $topicID) {
 		echo "Topic: $topicID, Scripture: $scriptureID <br>";
