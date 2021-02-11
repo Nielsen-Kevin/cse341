@@ -4,6 +4,16 @@ $db = dbConnect();
 
 
 if (($_SERVER['REQUEST_METHOD'] == 'POST')) {
+
+	if(isset($_POST['new'] && !empty($_POST['new_topic'])) {
+		// add new new_topic
+		$statement = $db->prepare('INSERT INTO team06.topic (name) VALUES (:name)');
+		$statement -> execute(['name' => $_POST['new_topic']]);
+		$topicID = $db->lastInsertId();
+
+		$_POST['topics'].append($topicID);
+	}
+
 	$statement = $db->prepare('INSERT INTO team06.scriptures (book, chapter, verse, content) VALUES (:book, :chapter, :verse, :content)');
 	$statement -> execute(['book' => $_POST['book'], 'chapter' => $_POST['chapter'], 'verse' => $_POST['verse'], 'content' => $_POST['content']]);
 	$scriptureID = $db->lastInsertId();
@@ -49,5 +59,10 @@ foreach($scriptures as $row) {
 	<?php foreach($topics as $topic) { ?>
 		<label> <input type="checkbox" name="topics[]" value="<?=$topic['id']?>"> <?=$topic['name']?></label>
 	<?php } ?>
+
+	<label>New Topic
+			<input type="checkbox" name="new" value="topic">
+			<input type='text' name='new_topic'>
+	</label>
 	<input type='submit' value='submit'>
 </from>
