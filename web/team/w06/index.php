@@ -1,6 +1,6 @@
 <?php
 require 'connections.php';
-$db;
+$db = dbConnect();
 
 $topics = $db->query('SELECT id, name FROM team06.topic', PDO::FETCH_ASSOC);
 
