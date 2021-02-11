@@ -26,9 +26,9 @@ if (($_SERVER['REQUEST_METHOD'] == 'POST')) {
 	
 	//$id = filter_input(INPUT_GET, 'id', FILTER_INT, FILTER_SANITIZE_NUMBER_INT);
 
-	$statement = $db -> prepare('INSERT INTO team06.scriptures (book, chapter, verse, content) VALUES (:book, :chapter, :verse, :content)');
+	$statement = $db->prepare('INSERT INTO team06.scriptures (book, chapter, verse, content) VALUES (:book, :chapter, :verse, :content)');
 	$statement -> execute(['book' => $_POST['book'], 'chapter' => $_POST['chapter'], 'verse' => $_POST['verse'], 'content' => $_POST['content']]);
-	$scriptureID = $db -> lastInsertId("scripture_id_seq");
+	$scriptureID = $db->lastInsertId("id");
 
 	foreach ($_POST['topics'] as $topicID) {
 		echo "Topic: $topicID, Scripture: $scriptureID <br>";
