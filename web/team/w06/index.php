@@ -4,9 +4,9 @@ $db = dbConnect();
 
 if (($_SERVER['REQUEST_METHOD'] == 'GET')) {
 
-	if(isset($_GET['DETETE'])) {
-		$statement = $db->prepare('DETETE INTO team06.scriptures (id) VALUES (:id)');
-		$statement -> execute(['id' => $_GET['DETETE']]);
+	if(isset($_GET['DELETE'])) {
+		$statement = $db->prepare('DELETE INTO team06.scriptures (id) VALUES (:id)');
+		$statement -> execute(['id' => $_GET['DELETE']]);
 		header('Location: .');
 	}
 }
@@ -44,7 +44,7 @@ $all_topics = $db->query('SELECT s.scripture_id, t.name
 
 foreach($scriptures as $row) {
 	echo '<div><b>' . $row['book'] . ' ' . $row['chapter'] . ':' . $row['verse'] . '</b> - "' . $row['content'] . '"<br>';
-	echo '<a href="?DETETE=' . $row['id'] . '">remove</a>';
+	echo '<a href="?DELETE=' . $row['id'] . '">remove</a>';
 
 	foreach($all_topics as $topic_found) {
 		echo print_r($topic_found, true);
