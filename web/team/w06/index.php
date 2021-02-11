@@ -14,18 +14,17 @@ foreach($scriptures as $id => $row) {
 	echo '<div><b>' . $row['book'] . ' ' . $row['chapter'] . ':' . $row['verse'] . '</b> - "' . $row['content'] . '"<br>';
 
 	foreach($all_topics as $topic_found) {
+		print_r($topic_found);
+		echo '<br>';
+
 		if($row['id'] == $topic_found['scripture_id']){
 			echo $topic_found['name'] . '<br>';
 		}
 
 	}
-	echo '</div>';
+	echo '</div><br><br><br><br>';
 }
 
-
-echo '<pre>';
-var_dump($scriptures);
-echo '</pre>';
 
 if (($_SERVER['REQUEST_METHOD'] == 'POST')) {
 	
@@ -36,7 +35,7 @@ if (($_SERVER['REQUEST_METHOD'] == 'POST')) {
 	$scriptureID = $db->lastInsertId();
 
 	foreach ($_POST['topics'] as $topicID) {
-		echo "Topic: $topicID, Scripture: $scriptureID <br>";
+		//echo "Topic: $topicID, Scripture: $scriptureID <br>";
 		$statement = $db -> prepare('INSERT INTO team06.scripture_topic (topic_id, scripture_id) VALUES (?, ?)');
 		$statement -> execute([$topicID, $scriptureID]);
 	}
