@@ -14,7 +14,7 @@ foreach($scriptures as $id => $row) {
 	echo '<div><b>' . $row['book'] . ' ' . $row['chapter'] . ':' . $row['verse'] . '</b> - "' . $row['content'] . '"<br>';
 
 	foreach($all_topics as $topic_found) {
-		print_r($topic_found);
+		echo print_r($topic_found, true);
 		echo '<br>';
 
 		if($row['id'] == $topic_found['scripture_id']){
