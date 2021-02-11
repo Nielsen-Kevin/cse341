@@ -33,7 +33,7 @@ if (($_SERVER['REQUEST_METHOD'] == 'POST')) {
 
 	foreach ($_POST['topics'] as $topicID) {
 		echo "Topic: $topicID, Scripture: $scriptureID <br>";
-		$statement = $db -> prepare('INSERT INTO team06.scripture_topic (topicID, scriptureID) VALUES (?, ?)');
+		$statement = $db -> prepare('INSERT INTO team06.scripture_topic (topic_id, scripture_id) VALUES (?, ?)');
 		$statement -> execute([$topicID, $scriptureID]);
 	}
 }
