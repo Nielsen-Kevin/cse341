@@ -1,66 +1,59 @@
 <?php
-require 'connections.php';
+require '../../library/connections.php';
+require 'model.php';
 $db = dbConnect();
 
 if (($_SERVER['REQUEST_METHOD'] == 'GET')) {
+	$delete_id = filter_input(INPUT_GET, 'delete', FILTER_SANITIZE_NUMBER_INT);
 
-	if(isset($_GET['DELETE'])) {
-		$statement = $db->prepare('DELETE FROM team06.scripture_topic WHERE scripture_id = :id');
-		$statement -> execute(['id' => $_GET['DELETE']]);
-
-		$statement = $db->prepare('DELETE FROM team06.scriptures WHERE id = :id');
-		$statement -> execute(['id' => $_GET['DELETE']]);
+	if($delete_id != null) {
+		deleteScriptures($delete_id);
 		header('Location: .');
 	}
 }
 
 if (($_SERVER['REQUEST_METHOD'] == 'POST')) {
+	$data['book'] = filter_input(INPUT_POST, 'book', FILTER_SANITIZE_STRING);
+	$data['chapter'] = filter_input(INPUT_POST, 'chapter', FILTER_SANITIZE_NUMBER_INT);
+	$data['verse'] = filter_input(INPUT_POST, 'verse', FILTER_SANITIZE_NUMBER_INT);
+	$data['content'] = filter_input(INPUT_POST, 'content', FILTER_SANITIZE_STRING);
+	$data['topics'] = filter_input(INPUT_POST, 'topics', FILTER_SANITIZE_NUMBER_INT, FILTER_REQUIRE_ARRAY);
 
-	if(isset($_POST['new']) && !empty($_POST['new_topic'])) {
+	$add_new = filter_input(INPUT_POST, 'add_new', FILTER_SANITIZE_STRING);
+	$topic_name = filter_input(INPUT_POST, 'topic_name', FILTER_SANITIZE_STRING);
+
+	if($add_new != null && !empty($topic_name)) {
 		// add new new_topic
 		$statement = $db->prepare('INSERT INTO team06.topic (name) VALUES (:name)');
-		$statement -> execute(['name' => $_POST['new_topic']]);
-		$topicID = $db->lastInsertId();
-
-		$_POST['topics'][] = $topicID;
+		$statement->execute(['name' => $topic_name]);
+		//add to topics
+		$data['topics'][] = $db->lastInsertId();
 	}
+	//send to model to save
+	addScripture($data);
 
-	$statement = $db->prepare('INSERT INTO team06.scriptures (book, chapter, verse, content) VALUES (:book, :chapter, :verse, :content)');
-	$statement -> execute(['book' => $_POST['book'], 'chapter' => $_POST['chapter'], 'verse' => $_POST['verse'], 'content' => $_POST['content']]);
-	$scriptureID = $db->lastInsertId();
-
-	foreach ($_POST['topics'] as $topicID) {
-		//echo "Topic: $topicID, Scripture: $scriptureID <br>";
-		$statement = $db -> prepare('INSERT INTO team06.scripture_topic (topic_id, scripture_id) VALUES (?, ?)');
-		$statement -> execute([$topicID, $scriptureID]);
+	$using = filter_input(INPUT_POST, 'using', FILTER_SANITIZE_STRING);
+	// Dont need to continue if using ajax
+	if(!empty($using) && $using == 'ajax') {
+		exit;
 	}
 }
 
+// Get our lists
+$topics = getTopics();
+$scriptures = getScriptures();
 
-$topics = $db->query('SELECT id, name FROM team06.topic', PDO::FETCH_ASSOC);
-$scriptures = $db->query('SELECT id, book, chapter, verse, content FROM team06.scriptures', PDO::FETCH_ASSOC);
-
-$all_topics = $db->query('SELECT s.scripture_id, t.name 
-	FROM team06.scripture_topic s 
-	INNER JOIN team06.topic t 
-	ON s.topic_id = t.id', PDO::FETCH_ASSOC);
 
 foreach($scriptures as $row) {
 	echo '<div><b>' . $row['book'] . ' ' . $row['chapter'] . ':' . $row['verse'] . '</b> - "' . $row['content'] . '"<br>';
-	echo '<a href="?DELETE=' . $row['id'] . '">remove</a>';
-
-	foreach($all_topics as $topic_found) {
-		echo $row['id']. ' ' . $topic_found['scripture_id'];
-		echo '<br>';
-
-		if($row['id'] == $topic_found['scripture_id']) {
-			echo $topic_found['name'] . '<br>';
-		}
-
-	}
-	echo '</div><br><br><br><br>';
+	echo implode(', ' , $row['topics']) . '<br>';
+	echo '<a href="?delete=' . $row['id'] . '">remove</a>';
+	echo '</div><br>';
 }
 ?>
+
+<hr>
+
 <form method="POST">
 	<label>Book <input type='text' name='book'></label><br>
 	<label>Chapter <input type='text' name='chapter'></label><br>
@@ -70,11 +63,30 @@ foreach($scriptures as $row) {
 	Topic <br>
 	<?php foreach($topics as $topic) { ?>
 		<label> <input type="checkbox" name="topics[]" value="<?=$topic['id']?>"> <?=$topic['name']?></label>
-	<?php } ?>
+	<?php } ?><br>
 
 	<label>New Topic
-			<input type="checkbox" name="new" value="topic">
-			<input type='text' name='new_topic'>
-	</label>
-	<input type='submit' value='submit'>
+			<input type="checkbox" name="add_new" value="1">
+			<input type='text' name='topic_name'>
+	</label><br>
+	<input type='submit' value='Normal Submit'><br>
+	<input type='button' value='AJAX Submit' id="ajax">
 </from>
+
+<script>
+// Note: we didn't do any js form validation oops :)
+document.getElementById('ajax').addEventListener('click', (e) => {
+	// prevent default
+	e.preventDefault();
+
+	// construct FormData object and load it with the form data
+	var formData = new FormData(document.querySelector('form'));
+	// value used in php
+	formData.append('using', 'ajax');
+
+	// sent data to the POST request
+	var request = new XMLHttpRequest();
+	request.open("POST", "index.php");
+	request.send(formData);
+});
+</script>
