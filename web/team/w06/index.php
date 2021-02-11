@@ -10,16 +10,21 @@ $all_topics = $db->query('SELECT s.scripture_id, t.name
 	INNER JOIN team06.topic t 
 	ON s.topic_id = t.id', PDO::FETCH_ASSOC);
 
-foreach($all_topics as $t_id) {
-	foreach($scriptures as $id => $curent) {
-		if($curent['id'] == $t_id['scripture_id']){
-			$scriptures[$id]['topics'][] = $t_id['name'];
+foreach($scriptures as $id => $row) {
+	echo '<div><b>' . $row['book'] . ' ' . $row['chapter'] . ':' . $row['verse'] . '</b> - "' . $row['content'] . '"<br>';
+
+	foreach($all_topics as $topic_found) {
+		if($row['id'] == $topic_found['scripture_id']){
+			echo $topic_found['name'] . '<br>';
 		}
+
 	}
+	echo '</div>';
 }
 
+
 echo '<pre>';
-print_r($scriptures);
+var_dump($scriptures);
 echo '</pre>';
 
 if (($_SERVER['REQUEST_METHOD'] == 'POST')) {
