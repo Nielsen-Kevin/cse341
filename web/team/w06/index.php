@@ -2,8 +2,8 @@
 require 'connections.php';
 $db = dbConnect();
 
-$topics = $db->query('SELECT id, name FROM team06.topic'
-$scriptures =  $db->query('SELECT id, book, chapter, verse, content FROM team06.scriptures', PDO::FETCH_ASSOC);
+$topics = $db->query('SELECT id, name FROM team06.topic', PDO::FETCH_ASSOC);
+$scriptures = $db->query('SELECT id, book, chapter, verse, content FROM team06.scriptures', PDO::FETCH_ASSOC);
 
 $stmt = $db->prepare('SELECT t.name 
 	FROM team06.scripture_topic s 
