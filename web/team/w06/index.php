@@ -7,8 +7,8 @@ $scriptures = $db->query('SELECT id, book, chapter, verse, content FROM team06.s
 
 $stmt = $db->prepare('SELECT t.name 
 	FROM team06.scripture_topic s 
-	JOIN team06.topic t 
-	IN s.topic_id = t.id WHERE scripture_id=:id');
+	INNER JOIN team06.topic t 
+	ON s.topic_id = t.id WHERE scripture_id=:id');
 
 $scripture_list =[];
 foreach($scriptures as $scripture) {
@@ -21,7 +21,7 @@ $stmt->closeCursor();
 
 
 print_r($scripture_list);
-exit;
+
 
 if (($_SERVER['REQUEST_METHOD'] == 'POST')) {
 	
