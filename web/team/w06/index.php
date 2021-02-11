@@ -7,7 +7,7 @@ if (($_SERVER['REQUEST_METHOD'] == 'GET')) {
 	if(isset($_GET['DETETE'])) {
 		$statement = $db->prepare('DETETE INTO team06.scriptures (id) VALUES (:id)');
 		$statement -> execute(['id' => $_GET['DETETE']]);
-		header('Location: .';)
+		header('Location: .');
 	}
 }
 
