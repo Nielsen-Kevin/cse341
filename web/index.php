@@ -20,7 +20,7 @@ switch ($action) {
 			['week'=>'Week 03', 'url'=>'week03/', 'title'=>'Shopping Cart'],
 			['week'=>'Week 04', 'url'=>'week04/', 'title'=>'DB Setup'],
 			['week'=>'Week 05', 'url'=>'week05/', 'title'=>'DB Access'],
-			['week'=>'Week 06', 'url'=>'#', 'title'=>'DB Update'],
+			['week'=>'Week 06', 'url'=>'week06/', 'title'=>'DB Update'],
 			['week'=>'Week 08', 'url'=>'#', 'title'=>'Hello World'],
 			['week'=>'Week 09', 'url'=>'#', 'title'=>'Postal Rate Calculator'],
 			['week'=>'Week 10', 'url'=>'#', 'title'=>'Milestone 1'],

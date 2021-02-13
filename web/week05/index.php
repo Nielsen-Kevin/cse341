@@ -6,7 +6,7 @@ session_start();
 // Configuration
 require '../config.php';
 // Load libraries
-include_once 'library/connections.php';
+include_once '../library/connections.php';
 include_once 'library/functions.php';
 $db = dbConnect();
 // Load models
@@ -14,7 +14,6 @@ include_once 'model/album.php';
 include_once 'model/access.php';
 include_once 'model/image.php';
 include_once 'model/user.php';
-
 
 
 $action = filter_input(INPUT_POST, 'action', FILTER_SANITIZE_STRING);
@@ -25,10 +24,6 @@ if ($action == NULL) {
 switch ($action) {
 	# TODO: Album - Add Edit Delete
 	# TODO: image - Add Edit Delete
-
-	/*--------------------
-		Display Image
-	--------------------*/
 
 	/*--------------------
 		key-in to Album
@@ -89,7 +84,7 @@ switch ($action) {
 
 	default:
 		/*-------------------------
-			Display image detail
+			Display Image Detail
 		--------------------------*/
 		$image_id = filter_input(INPUT_GET, 'image', FILTER_SANITIZE_NUMBER_INT);
 		if ($image_id != NULL) {
@@ -109,7 +104,6 @@ switch ($action) {
 		// Page title
 		$docTitle = "Main Galley";
 
-
 		/*--------------------
 			Display Album
 		--------------------*/
@@ -119,7 +113,7 @@ switch ($action) {
 		}
 		$album = getAlbum($album_id);
 
-#TODO $album['user_id'] == $_SESSION['userData']['user_id']
+		// Check if private or if login and is album owner
 		if($album['album_private'] || isAlbumOwner($album['user_id']) ){
 			// Check if they have permission on current album
 			accessPermission($album_id);
@@ -129,15 +123,3 @@ switch ($action) {
 		$subAlbums = getSubAlbums($album_id);
 		include 'view/album.php';
 }
-
-
-exit;
-
-
-	$statement = $db->prepare('SELECT column FROM table');
-	$statement->execute();
-
-	// Go through each result
-	while ($row = $statement->fetch(PDO::FETCH_ASSOC)) {
-		echo $row['column'];
-	}
