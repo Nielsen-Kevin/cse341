@@ -1,0 +1,152 @@
+//@import "partials/reset";
+@import "../../css/partials/prefix-mixins";
+@import "../../css/partials/layout"; // responsive grid and media queries
+@import "../../css/partials/header";
+@import "../../css/partials/footer";
+@import "../../css/partials/nav";
+@import "../../css/partials/modal";
+@import "partials/gallery";
+
+* {
+	box-sizing: border-box;
+	font-family: "Segoe UI";
+}
+body {
+	margin: 0;
+	padding: 0;
+	height: 100vh;
+	background-color: #0076b6;
+}
+
+h1 {
+	text-align: center;
+	color: #fff;
+}
+h3 {
+	text-align: center;
+	font-weight: normal;
+	color: #000;
+	&.sub-title {
+		margin-top: -20px;
+	}
+}
+
+a {
+	color: #03a9f4;
+	text-decoration: none;
+	&:hover {
+		color: #000000;
+		text-decoration: none;
+		transition: all 1s;
+	}
+}
+
+main {
+	margin: 0 20px;
+	padding: 0;
+	height: auto;
+	min-height: 500px;
+	p {
+		font-size: 1.1em;
+		color: #c1c1c1;
+	}
+}
+
+b {
+	color: #000000;
+	font-weight: bold;
+}
+
+.right {text-align: right;}
+.left {text-align: left;}
+.center {text-align: center;}
+
+.nowrap {white-space: nowrap;}
+
+/* -------------------------------- 
+
+Form Elements
+
+-------------------------------- */
+
+input[type=text], input[type=number], input[type=email], input[type=password], select, textarea {
+	font-size: 1em;
+	color: #797979;
+	border: 1px solid #888;
+	padding: 6px;
+	border-radius: 4px;	
+	background-color: #f2f7fa;
+	width: 100%;
+}
+
+input[type=text]:focus, input[type=number]:focus, input[type=email]:focus, input[type=password]:focus, select:focus, textarea:focus {
+	outline: 0;
+	border-color: #4697e4;
+}
+
+textarea {min-height:200px;}
+
+.button {
+	max-width: 150px;
+	width: 100%;
+	height: 35px;
+	color: #FFFFFF;
+	background-color: #179bd7;
+	border-radius: 5px;	
+	border: 0;
+	font-size: .875rem;
+	font-weight: bold;
+	text-align: center;
+	cursor: pointer;
+	transition: background-color .5s;
+	&:hover {
+		color: #FFFFFF;
+		background-color: #000000;
+		transition: background-color .5s;
+	}
+	&.red {
+		background-color: #e60f0f;
+		&:hover {
+			color: #FFFFFF;
+			background-color: #000000;
+			transition: background-color .5s;
+		}
+	}
+}
+
+a.button {
+	display: block;
+	padding: 8px;
+	text-decoration: none;
+}
+
+.left {
+	a.button {
+		margin-right: auto;
+	}
+}
+.right {
+	a.button {
+		margin-left: auto;
+	}
+}
+
+label, .bold {
+	font-weight:bold;
+}
+
+img {
+	&.responsive {
+		width: 100%;
+		height: auto;
+	}
+
+	&.white-border {
+		background-color: white;
+		padding: 10px;
+	}
+
+	&.shadow {
+		box-shadow: 0 10px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+	}
+}

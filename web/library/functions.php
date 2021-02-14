@@ -2,6 +2,17 @@
 # Custom Function Library
 
 /*--------------------
+	Field Validation
+--------------------*/
+// Check for valid email address
+// Returns empty if invalided
+function checkEmail($email) {
+	$valEmail = filter_var($email, FILTER_VALIDATE_EMAIL);
+	return $valEmail;
+}
+
+
+/*--------------------
 	Login Aids
 --------------------*/
 
@@ -12,7 +23,7 @@ function setReturnUrl() {
 }
 
 // Login required area
-function loginRequired($loction = '/account/') {
+function loginRequired($loction = './account/') {
 	if( !(isset($_SESSION['loggedin']) && $_SESSION['loggedin']) ) {
 		//Set Return
 		setReturnUrl();
@@ -23,7 +34,7 @@ function loginRequired($loction = '/account/') {
 }
 
 // Check if login and has adequate user level
-function minAccessRequired($level, $loction = '/account/') {
+function minAccessRequired($level, $loction = './account/') {
 	if( !(isset($_SESSION['loggedin']) && $_SESSION['userData']['user_level'] >= $level) ) {
 		// force them away
 		header('Location: '. $loction);
@@ -31,7 +42,7 @@ function minAccessRequired($level, $loction = '/account/') {
 	}
 }
 
-function accessRequired($level, $loction = '/account/') {
+function accessRequired($level, $loction = './account/') {
 	if( !(isset($_SESSION['loggedin']) && $_SESSION['userData']['user_level'] == $level) ) {
 		// force them away
 		header('Location: '. $loction);
@@ -64,6 +75,40 @@ function isAlbumOwner($user_id) {
 		}
 	}
 	return false;
+}
+
+/*--------------------
+	Other
+--------------------*/
+function sessionMessage() {
+	// Handle message from session
+	if (isset($_SESSION['message'])) {
+		$message = $_SESSION['message'];
+		// Clear message after used
+		unset($_SESSION['message']);
+		return $message;
+	}
+	return '';
+}
+
+
+function create_guid() { // Create GUID (Globally Unique Identifier)
+	$guid = '';
+	$namespace = rand(11111, 99999);
+	$uid = uniqid('', true);
+	$data = $namespace;
+	$data .= $_SERVER['REQUEST_TIME'];
+	$data .= $_SERVER['HTTP_USER_AGENT'];
+	$data .= $_SERVER['REMOTE_ADDR'];
+	$data .= $_SERVER['REMOTE_PORT'];
+	//$hash = strtoupper(hash('ripemd128', $uid . $guid . md5($data)));
+	$hash = hash('ripemd128', $uid . $guid . md5($data));
+	$guid = substr($hash,  0,  8) . '-' .
+			substr($hash,  8,  4) . '-' .
+			substr($hash, 12,  4) . '-' .
+			substr($hash, 16,  4) . '-' .
+			substr($hash, 20, 12);
+	return $guid;
 }
 
 /*--------------------

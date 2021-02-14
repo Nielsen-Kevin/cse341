@@ -6,8 +6,8 @@ session_start();
 // Configuration
 require '../config.php';
 // Load libraries
-include_once 'library/connections.php';
-include_once 'library/functions.php';
+include_once '../library/connections.php';
+include_once '../library/functions.php';
 $db = dbConnect();
 // Load models
 include_once 'model/album.php';
@@ -15,7 +15,8 @@ include_once 'model/access.php';
 include_once 'model/image.php';
 include_once 'model/user.php';
 
-
+// Login required area
+loginRequired();
 
 $action = filter_input(INPUT_POST, 'action', FILTER_SANITIZE_STRING);
 if ($action == NULL) {
@@ -23,69 +24,124 @@ if ($action == NULL) {
 }
 
 switch ($action) {
-	# TODO: Album - Add Edit Delete
-	# TODO: image - Add Edit Delete
+	/*--------------------
+	Album
+	--------------------*/
+	// Album List
+	case 'album-list':
+		$albumsList = getAllAlbums();
+		$docTitle = "Album List";
+		$message = sessionMessage();
+		include 'view/album-list.php';
+	break;
+
+	// Add Album
+	case 'add-album':
+		include 'action/album-add.php';
+	break;
+
+	// Edit Album
+	case 'edit-album':
+		$album_id = filter_input(INPUT_GET, 'album_id', FILTER_SANITIZE_NUMBER_INT);
+		if ($album_id == NULL) {
+			echo '404';
+			break;
+		}
+		include 'action/album-edit.php';
+	break;
+
+	// Album Delete and confirmation
+	case 'delete-album':
+		if (($_SERVER['REQUEST_METHOD'] == 'POST')) {
+			$album_id = filter_input(INPUT_POST, 'album_id', FILTER_SANITIZE_NUMBER_INT);
+			// do the delete
+			$deleteResult = deleteAlbum($album_id);
+			if ($deleteResult) {
+				$_SESSION['message'] = "<p class='success'>Album was successfully deleted.</p>";
+			} else {
+				$_SESSION['message'] = "<p class='error'>Error: album was not deleted.</p>";
+			}
+			header('location: ?action=album-list');
+			exit;
+		}
+		// delete confirmation
+		$album_id = filter_input(INPUT_GET, 'album_id', FILTER_SANITIZE_NUMBER_INT);
+		$album = getAlbum($album_id);
+		extract($album);
+		$docTitle = "Delete Album";
+		include 'view/album-confirm.php';
+	break;
+
+	//	Album images
+	case 'album-images':
+		$album_id = filter_input(INPUT_GET, 'album_id', FILTER_SANITIZE_NUMBER_INT);
+		
+		$albumList = getAlbumList();
+		$subAlbums = getSubAlbums($album_id);
+		$album = getAlbum($album_id);
+		$images = getImagesByAlbum($album_id);
+
+		$message = sessionMessage();
+		$docTitle = "Album Contents";
+		include 'view/album-contents.php';
+	break;
 
 	/*--------------------
-		key-in to Album
+	Image
+	--------------------*/
+	// Add Image
+	case 'add-image':
+		include 'action/image-add.php';
+	break;
+
+	// Edit Image
+	case 'edit-image':
+		$image_id = filter_input(INPUT_GET, 'image_id', FILTER_SANITIZE_NUMBER_INT);
+		if ($image_id == NULL) {
+			echo '404';
+			break;
+		}
+		include 'action/image-edit.php';
+	break;
+
+	// Image Delete and confirmation
+	case 'delete-image':
+		if (($_SERVER['REQUEST_METHOD'] == 'POST')) {
+			$image_id = filter_input(INPUT_POST, 'image_id', FILTER_SANITIZE_NUMBER_INT);
+			$album_id = filter_input(INPUT_POST, 'album_id', FILTER_SANITIZE_NUMBER_INT);
+			// do the delete
+			$deleteResult = deleteImage($image_id);
+			if ($deleteResult) {
+				$_SESSION['message'] = "<p class='success'>Image was successfully deleted.</p>";
+			} else {
+				$_SESSION['message'] = "<p class='error'>Error: image was not deleted.</p>";
+			}
+
+			
+			header('location: ?action=album-images&album_id=' . $album_id);
+			exit;
+		}
+		// delete confirmation
+		$image_id = filter_input(INPUT_GET, 'image_id', FILTER_SANITIZE_NUMBER_INT);
+		$album_id = filter_input(INPUT_GET, 'album_id', FILTER_SANITIZE_NUMBER_INT);
+		$image = getImage($image_id);
+		extract($image);
+		$docTitle = "Delete Image";
+		include 'view/image-confirm.php';
+	break;
+
+
+
+	/*--------------------
+	key-in to Album
 	--------------------*/
 	case 'key-in':
-		do {
-			if (($_SERVER['REQUEST_METHOD'] != 'POST')) {
-				break;
-			}
-			// Sanitize data coming in
-			$album_id = filter_input(INPUT_GET, 'album', FILTER_SANITIZE_NUMBER_INT);
-			$key = filter_input(INPUT_POST, 'key', FILTER_SANITIZE_STRING);
-
-			// Run basic checks, return if errors
-			if(empty($album_id) || empty($key)){
-				$errors = [];
-				if (empty($key)) {
-					$errors['errorKey'] = '<span class="error">key is required.</span>';
-				}
-				if (empty($album_id)) {
-					$errors['errorAlbumId'] = '<span class="error">album Id is required.</span>';
-				}
-
-				extract($errors);
-				break;
-			}
-			// Get key list for this album
-			$activeKeys = getAlbumKeys($album_id);
-
-			$passed = false;
-			// check each key
-			foreach($activeKeys as $access) {
-				if($key == $access['password']) {
-					$passed = true;
-					break;
-				}
-			}
-			if(!$passed) {
-				$message = '<p class="error">Your access key is invalid. Please try again.</p>';
-				break;
-			}
-
-			// Add album_id to the key list
-			$_SESSION['keys'][] = $album_id;
-
-			if(isset($_SESSION['returnUrl'])) {
-				$returnUrl = $_SESSION['returnUrl'];
-				unset($_SESSION['returnUrl']);
-				// Redirect them
-				header('Location: ' . $returnUrl);
-				exit;
-			}
-		} while (false);
-
-		$docTitle = "Key Into Album";
-		include 'view/key-form.php';
+		include 'action/key-in.php';
 	break;
 
 	default:
 		/*-------------------------
-			Display Image Detail
+		Display Image Detail
 		--------------------------*/
 		$image_id = filter_input(INPUT_GET, 'image', FILTER_SANITIZE_NUMBER_INT);
 		if ($image_id != NULL) {
@@ -105,9 +161,11 @@ switch ($action) {
 		// Page title
 		$docTitle = "Main Galley";
 
+		
+
 
 		/*--------------------
-			Display Album
+		Display Album
 		--------------------*/
 		$album_id = filter_input(INPUT_GET, 'album', FILTER_SANITIZE_NUMBER_INT);
 		if ($album_id == NULL) {
@@ -115,8 +173,8 @@ switch ($action) {
 		}
 		$album = getAlbum($album_id);
 
-		// Check if private or if login and is album owner
-		if($album['album_private'] || isAlbumOwner($album['user_id']) ){
+		// Check if private or if login and is not album owner
+		if($album['album_private'] || !isAlbumOwner($album['user_id']) ){
 			// Check if they have permission on current album
 			accessPermission($album_id);
 		}
