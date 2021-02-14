@@ -6,15 +6,6 @@
 		<p class="description"><?=$album['album_description']?></p>
 
 		<?=$album['album_parent']?'<a href="?album='.$album['album_parent'].'">Back</a>':''?>
-
-		<?php if(!empty($album['album_share_key'])) {
-			$url = filter_input(INPUT_SERVER, 'REQUEST_URI', FILTER_SANITIZE_URL);
-			$url = 'https://secret-scrubland-75850.herokuapp.com' . strtok($url, '?');
-
-			echo 'Share <input value="'.$url . '?aka=' . $album['album_share_key'].'">';
-			
-			print_e($album['album_share_key'], $_SERVER['PHP_SELF'], $url );
-		} ?>
 	</div>
 
 	<div class="album-grid">
