@@ -60,7 +60,7 @@ function addImage($data) {
 	// Create a connection object from connection function
 	global $db;
 	// The SQL statement
-	$sql = 'INSERT INTO image (album_id, image_title, image_caption, image_name, image_private, image_share_key, image_order)
+	$sql = 'INSERT INTO project01.image (album_id, image_title, image_caption, image_name, image_private, image_share_key, image_order)
 			VALUES (:album_id, :image_title, :image_caption, :image_name, :image_private, :image_share_key, :image_order)';
 	// Create the prepared statement using the database connection
 	$stmt = $db->prepare($sql);
@@ -87,7 +87,7 @@ function updateImage($data, $image_id) {
 	// Create a connection object from connection function
 	global $db;
 	// The SQL statement
-	$sql = 'UPDATE image SET album_id = :album_id, image_title = :image_title, image_caption = :image_caption, image_name = :image_name, image_private = :image_private, image_share_key = :image_share_key, image_order = :image_order WHERE image_id = :image_id';
+	$sql = 'UPDATE project01.image SET album_id = :album_id, image_title = :image_title, image_caption = :image_caption, image_name = :image_name, image_private = :image_private, image_share_key = :image_share_key, image_order = :image_order WHERE image_id = :image_id';
 	// Create the prepared statement using the database connection
 	$stmt = $db->prepare($sql);
 	// Bind values to SQL statement

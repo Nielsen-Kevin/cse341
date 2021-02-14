@@ -174,7 +174,7 @@ switch ($action) {
 		$album = getAlbum($album_id);
 
 		// Check if private or if login and is not album owner
-		if($album['album_private'] || !isAlbumOwner($album['user_id']) ){
+		if($album['album_private'] && !isAlbumOwner($album['user_id']) ){
 			// Check if they have permission on current album
 			accessPermission($album_id);
 		}

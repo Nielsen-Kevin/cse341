@@ -58,7 +58,7 @@ function addUser($data) {
 	// Create a connection object from connection function
 	global $db;
 	// The SQL statement
-	$sql = 'INSERT INTO user (user_id, user_name, user_email, user_password, user_level)
+	$sql = 'INSERT INTO project01.user (user_id, user_name, user_email, user_password, user_level)
 			VALUES (:user_id, :user_name, :user_email, :user_password, :user_level)';
 	// Create the prepared statement using the database connection
 	$stmt = $db->prepare($sql);
@@ -83,7 +83,7 @@ function updateUser($data, $user_id) {
 	// Create a connection object from connection function
 	global $db;
 	// The SQL statement
-	$sql = 'UPDATE user SET user_id = :user_id, user_name = :user_name, user_email = :user_email, user_password = :user_password, user_level = :user_level WHERE user_id = :user_id';
+	$sql = 'UPDATE project01.user SET user_id = :user_id, user_name = :user_name, user_email = :user_email, user_password = :user_password, user_level = :user_level WHERE user_id = :user_id';
 	// Create the prepared statement using the database connection
 	$stmt = $db->prepare($sql);
 	// Bind values to SQL statement
@@ -105,7 +105,7 @@ function updateUser($data, $user_id) {
 // Update password
 function updatePassword($user_password, $user_id) {
 	$db = phpmotorsConnect();
-	$sql = 'UPDATE user SET user_password = :user_password WHERE user_id = :user_id';
+	$sql = 'UPDATE project01.user SET user_password = :user_password WHERE user_id = :user_id';
 	$stmt = $db->prepare($sql);
 	$stmt->bindValue(':user_password', $user_password, PDO::PARAM_STR);
 	$stmt->bindValue(':user_id', $user_id, PDO::PARAM_INT);

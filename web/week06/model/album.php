@@ -67,7 +67,7 @@ function addAlbum($data) {
 	// Create a connection object from connection function
 	global $db;
 	// The SQL statement
-	$sql = 'INSERT INTO album (user_id, album_parent, album_title, album_description, album_private, album_share_key, album_order)
+	$sql = 'INSERT INTO project01.album (user_id, album_parent, album_title, album_description, album_private, album_share_key, album_order)
 			VALUES (:user_id, :album_parent, :album_title, :album_description, :album_private, :album_share_key, :album_order)';
 	// Create the prepared statement using the database connection
 	$stmt = $db->prepare($sql);
@@ -94,7 +94,7 @@ function updateAlbum($data, $album_id) {
 	// Create a connection object from connection function
 	global $db;
 	// The SQL statement
-	$sql = 'UPDATE album SET album_id = :album_id, user_id = :user_id, album_parent = :album_parent, album_title = :album_title, album_description = :album_description, album_private = :album_private, album_share_key = :album_share_key, album_order = :album_order WHERE album_id = :album_id';
+	$sql = 'UPDATE project01.album SET album_id = :album_id, user_id = :user_id, album_parent = :album_parent, album_title = :album_title, album_description = :album_description, album_private = :album_private, album_share_key = :album_share_key, album_order = :album_order WHERE album_id = :album_id';
 	// Create the prepared statement using the database connection
 	$stmt = $db->prepare($sql);
 	// Bind values to SQL statement
