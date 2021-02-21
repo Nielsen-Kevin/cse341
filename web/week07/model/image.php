@@ -48,7 +48,7 @@ function getImagesByAlbum($album_id, $hide=0) {
 	global $db;
 	
 	if($hide){
-		$sql = 'SELECT image_id, image_title, image_caption, image_name, image_private FROM project01.image WHERE album_id = :album_id AND image_private != 1 ORDER BY image_order,image_title';
+		$sql = 'SELECT image_id, image_title, image_caption, image_name, image_private FROM project01.image WHERE album_id = :album_id AND image_private IS NOT TRUE ORDER BY image_order,image_title';
 	} else {
 		$sql = 'SELECT image_id, image_title, image_caption, image_name, image_private FROM project01.image WHERE album_id = :album_id ORDER BY image_order,image_title';
 	}
