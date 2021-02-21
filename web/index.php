@@ -29,7 +29,7 @@ switch ($action) {
 		];
 		// Project List
 		$projects = [
-			['week'=>'Week 07', 'url'=>'#', 'title'=>'Project 1'],
+			['week'=>'Week 07', 'url'=>'week07/', 'title'=>'Project 1'],
 			['week'=>'Week 14', 'url'=>'#', 'title'=>'Project 2']
 		];
 		// Page title
