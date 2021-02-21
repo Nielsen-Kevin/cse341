@@ -15,12 +15,28 @@ include_once 'model/access.php';
 include_once 'model/image.php';
 include_once 'model/user.php';
 
-// Login required area
-loginRequired();
-
 $action = filter_input(INPUT_POST, 'action', FILTER_SANITIZE_STRING);
 if ($action == NULL) {
 	$action = filter_input(INPUT_GET, 'action', FILTER_SANITIZE_STRING);
+}
+
+// Action that required login
+switch ($action) {
+	case 'album-list':
+	case 'add-album':
+	case 'edit-album':
+	case 'delete-album':
+	case 'album-images':
+	case 'add-image':
+	case 'edit-image':
+	case 'delete-image':
+	case 'access-list':
+	case 'add-access':
+	case 'edit-access':
+	case 'delete-access':
+		// Login required area
+		loginRequired();
+	break;
 }
 
 switch ($action) {
@@ -188,27 +204,16 @@ switch ($action) {
 		include 'action/key-in.php';
 	break;
 
-	default:
-
-		// Share Key
-		$aka = filter_input(INPUT_GET, 'action', FILTER_SANITIZE_STRING);
-		if ($aka != NULL) {
-			//aka=cd41294a-afb0-11df-bc9b-00241dd71235
-			//https://secret-scrubland-75850.herokuapp.com/week07/?aka=cd41294a-afb0-11df-bc9b-00241dd71237
-
-			//http://localhost/cse341/web//cse341/web/week07/?aka=cd41294a-afb0-11df-bc9b-00241dd71234
-		}
-
-
-		/*-------------------------
-		Display Image Detail
-		--------------------------*/
-		$image_id = filter_input(INPUT_GET, 'image', FILTER_SANITIZE_NUMBER_INT);
+	/*-------------------------
+	Display Image Detail
+	--------------------------*/
+	case 'image':
+		$image_id = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT);
 		if ($image_id != NULL) {
 			$img = getImage($image_id);
 			$docTitle = $img['image_title'];
 
-			if($img['image_private'] || isAlbumOwner($img['user_id']) ){
+			if($img['image_private'] && !isAlbumOwner($img['user_id']) ){
 				// Check if they have permission on current image
 				$docTitle = 'Private';
 				$isPrivate = 'This image is set to private and can not be viewed';
@@ -217,17 +222,13 @@ switch ($action) {
 			include 'view/image-detail.php';
 			exit;
 		}
+	break;
 
-		// Page title
-		$docTitle = "Main Galley";
-
-		
-
-
-		/*--------------------
-		Display Album
-		--------------------*/
-		$album_id = filter_input(INPUT_GET, 'album', FILTER_SANITIZE_NUMBER_INT);
+	/*--------------------
+	Display Album
+	--------------------*/
+	case 'album':
+		$album_id = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT);
 		if ($album_id == NULL) {
 			$album_id = 1;
 		}
@@ -239,7 +240,54 @@ switch ($action) {
 			accessPermission($album_id);
 		}
 		$docTitle = $album['album_title'];
-		$images = getImagesByAlbum($album_id);
+		if(!isAlbumOwner($album_id) ){
+			$images = getImagesByAlbum($album_id, 1);
+		} else {
+			$images = getImagesByAlbum($album_id);
+		}
+		$subAlbums = getSubAlbums($album_id);
+		include 'view/album.php';
+	break;
+
+	/*--------------------
+	Display Album
+	--------------------*/
+	case 'share':
+		// Share Key
+		$key = filter_input(INPUT_GET, 'key', FILTER_SANITIZE_STRING);
+		if ($key != NULL) {
+			$album = getAlbumByShareKey($key);
+
+			// Only if pass is required
+			if($album['pass_needed']) {
+				// Add album_id to the key list
+				$_SESSION['keys'][] = $album['album_id'];
+			}
+			
+			header('location: ?action=album&id=' . $album['album_id']);
+			exit;
+		}
+	break;
+
+	/*--------------------
+	Display Main Album
+	--------------------*/	
+	default:
+		// Page title
+		$docTitle = "Main Galley";
+		$album_id = 1;
+		$album = getAlbum($album_id);
+
+		// Check if private or if login and is not album owner
+		if($album['album_private'] && !isAlbumOwner($album['user_id']) ){
+			// Check if they have permission on current album
+			accessPermission($album_id);
+		}
+		if(!isAlbumOwner($album_id) ){
+			$images = getImagesByAlbum($album_id, 1);
+		} else {
+			$images = getImagesByAlbum($album_id);
+		}
 		$subAlbums = getSubAlbums($album_id);
 		include 'view/album.php';
 }

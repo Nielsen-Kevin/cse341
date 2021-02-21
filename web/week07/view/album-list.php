@@ -27,7 +27,17 @@
 			<td><?=$album['album_parent']?></td>
 			<td><?=$album['album_title']?></td>
 			<td><?=($album['album_private'])?'yes':'no'?></td>
-			<td><?=$album['album_share_key']?></td>
+			<td>
+				<?=$album['album_share_key']?>
+
+				<input type="text" class="share_key" value="<?=HTTP_ROOT?>week07/?action=share&key=<?=$album['album_share_key']?>" id="key_<?=$album['album_id']?>">
+				<div class="tooltip">
+					<button onclick="copyClipboard(this, 'key_<?=$album['album_id']?>')" onmouseout="outReset(this)">
+						<span class="tooltiptext">Copy to clipboard</span>Copy as URL
+					</button>
+				</div>
+		
+			</td>
 			<td class="right">
 				<a href="?action=edit-album&album_id=<?=$album['album_id']?>">Edit</a> |
 				<a href="?action=album-images&album_id=<?=$album['album_id']?>">Images</a> |
@@ -40,4 +50,20 @@
 </table>
 
 </main>
+<script>
+function copyClipboard(el, id) {
+	var copyText = document.getElementById(id);
+	copyText.select();
+	copyText.setSelectionRange(0, 99999);
+	document.execCommand('copy');
+
+	var tooltip = el.getElementsByClassName("tooltiptext")[0];
+	tooltip.innerHTML = 'Copied';
+}
+
+function outReset(el) {
+	var tooltip = el.getElementsByClassName("tooltiptext")[0];
+	tooltip.innerHTML = 'Copy to clipboard';
+}
+</script>
 <?php require $_SERVER['DOCUMENT_ROOT'] . '/week07/view/footer.php'; ?>

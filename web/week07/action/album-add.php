@@ -31,7 +31,7 @@ do {
 		'album_description' => $album_description,
 		'album_private' => ($album_private == 1) ? true : false,
 		'album_share_key' => create_guid(),
-		'album_order' => $album_order,
+		'album_order' => (int)$album_order,
 	];
 
 	// Insert the document information to the database, get the result

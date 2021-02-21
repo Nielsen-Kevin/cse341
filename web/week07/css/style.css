@@ -282,7 +282,18 @@ Gallery
 }
 
 #gallery .card .head {
+  text-align: center;
   background-color: #005d87;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  min-height: 160px;
 }
 
 #gallery .card .head a:hover {
@@ -314,12 +325,11 @@ Gallery
   color: #ffffff;
 }
 
-#gallery .card .fa-images {
-  height: 140px;
+#gallery .card .fa-images,
+#gallery .card .fa-image {
   width: 100%;
   text-align: center;
-  font-size: 90px;
-  line-height: 140px;
+  font-size: 100px;
   color: #ffffff;
   text-shadow: 5px 2px #000000;
 }
@@ -415,6 +425,52 @@ Gallery
 
 .list-table tr {
   background-color: #f5f5f5;
+}
+
+.tooltip {
+  position: relative;
+  display: inline-block;
+}
+
+.tooltip .tooltiptext {
+  visibility: hidden;
+  width: 140px;
+  background-color: #555;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px;
+  position: absolute;
+  z-index: 1;
+  bottom: 150%;
+  left: 50%;
+  margin-left: -75px;
+  opacity: 0;
+  -webkit-transition: opacity 0.3s;
+  transition: opacity 0.3s;
+}
+
+.tooltip .tooltiptext::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: #555 transparent transparent transparent;
+}
+
+.tooltip:hover .tooltiptext {
+  visibility: visible;
+  opacity: 1;
+}
+
+.share_key {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+  z-index: -1000;
 }
 
 * {

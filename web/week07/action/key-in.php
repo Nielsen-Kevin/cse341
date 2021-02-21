@@ -4,7 +4,7 @@ do {
 		break;
 	}
 	// Sanitize data coming in
-	$album_id = filter_input(INPUT_GET, 'album', FILTER_SANITIZE_NUMBER_INT);
+	$album_id = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT);
 	$key = filter_input(INPUT_POST, 'key', FILTER_SANITIZE_STRING);
 
 	// Run basic checks, return if errors

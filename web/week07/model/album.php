@@ -16,6 +16,20 @@ function getAlbum($album_id) {
 	return $row;
 }
 
+// Get specific Album based on id
+function getAlbumByShareKey($key) {
+	global $db;
+	$sql = 'SELECT a.album_id, (SELECT COUNT(*) AS total FROM project01.access k WHERE k.album_id = a.album_id) AS pass_needed
+	 FROM project01.album a WHERE a.album_share_key = :album_share_key LIMIT 1';
+	$stmt = $db->prepare($sql);
+	$stmt->bindValue(':album_share_key', $key, PDO::PARAM_STR);
+	$stmt->execute();
+	// fetch returns single record
+	$row = $stmt->fetch(PDO::FETCH_ASSOC);
+	$stmt->closeCursor();
+	return $row;
+}
+
 // Get Sub Albums
 function getSubAlbums($album_parent) {
 	global $db;
@@ -43,7 +57,7 @@ function getAlbumByUser($user_id) {
 // Get All Albums
 function getAllAlbums() {
 	global $db;
-	$sql = 'SELECT album_id, user_id, album_parent, album_title, album_description, album_private, album_share_key, album_order FROM project01.album';
+	$sql = 'SELECT album_id, user_id, album_parent, album_title, album_description, album_private, album_share_key, album_order FROM project01.album ORDER BY album_parent,album_title';
 	$stmt = $db->prepare($sql);
 	$stmt->execute();
 	$rows = $stmt->fetchAll(PDO::FETCH_ASSOC);

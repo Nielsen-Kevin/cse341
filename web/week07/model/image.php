@@ -6,7 +6,7 @@
 // Get specific Image based on id
 function getImage($image_id) {
 	global $db;
-	$sql = 'SELECT i.album_id, i.image_title, i.image_caption, i.image_name, i.image_private, i.image_share_key, a.user_id 
+	$sql = 'SELECT i.album_id, i.image_title, i.image_caption, i.image_name, i.image_private, i.image_share_key, i.image_order, a.user_id 
 	FROM project01.image i LEFT JOIN project01.album a ON i.album_id = a.album_id 
 	WHERE i.image_id = :image_id LIMIT 1';
 	$stmt = $db->prepare($sql);
@@ -44,9 +44,14 @@ function getAllImages() {
 }
 
 // Get Images based on album id
-function getImagesByAlbum($album_id) {
+function getImagesByAlbum($album_id, $hide=0) {
 	global $db;
-	$sql = 'SELECT image_id, image_title, image_caption, image_name, image_private FROM project01.image WHERE album_id = :album_id ORDER BY image_order,image_title';
+	
+	if($hide){
+		$sql = 'SELECT image_id, image_title, image_caption, image_name, image_private FROM project01.image WHERE album_id = :album_id AND image_private != 1 ORDER BY image_order,image_title';
+	} else {
+		$sql = 'SELECT image_id, image_title, image_caption, image_name, image_private FROM project01.image WHERE album_id = :album_id ORDER BY image_order,image_title';
+	}
 	$stmt = $db->prepare($sql);
 	$stmt->bindValue(':album_id', $album_id, PDO::PARAM_INT);
 	$stmt->execute();
@@ -62,24 +67,32 @@ function addImage($data) {
 	// The SQL statement
 	$sql = 'INSERT INTO project01.image (album_id, image_title, image_caption, image_name, image_private, image_share_key, image_order)
 			VALUES (:album_id, :image_title, :image_caption, :image_name, :image_private, :image_share_key, :image_order)';
-	// Create the prepared statement using the database connection
-	$stmt = $db->prepare($sql);
-	// Bind values to SQL statement
-	$stmt->bindValue(':album_id', $data['album_id'], PDO::PARAM_INT);
-	$stmt->bindValue(':image_title', $data['image_title'], PDO::PARAM_STR);
-	$stmt->bindValue(':image_caption', $data['image_caption'], PDO::PARAM_STR);
-	$stmt->bindValue(':image_name', $data['image_name'], PDO::PARAM_STR);
-	$stmt->bindValue(':image_private', $data['image_private'], PDO::PARAM_INT);
-	$stmt->bindValue(':image_share_key', $data['image_share_key'], PDO::PARAM_STR);
-	$stmt->bindValue(':image_order', $data['image_order'], PDO::PARAM_INT);
-	// Insert the data
-	$stmt->execute();
-	// Ask how many rows changed as a result of our insert
-	$rowsChanged = $stmt->rowCount();
-	// Close the database interaction
-	$stmt->closeCursor();
-	// Return the indication of success (rows changed)
-	return $rowsChanged;
+	
+	try {
+		// Create the prepared statement using the database connection
+		$stmt = $db->prepare($sql);
+		// Bind values to SQL statement
+		$stmt->bindValue(':album_id', $data['album_id'], PDO::PARAM_INT);
+		$stmt->bindValue(':image_title', $data['image_title'], PDO::PARAM_STR);
+		$stmt->bindValue(':image_caption', $data['image_caption'], PDO::PARAM_STR);
+		$stmt->bindValue(':image_name', $data['image_name'], PDO::PARAM_STR);
+		$stmt->bindValue(':image_private', $data['image_private'], PDO::PARAM_INT);
+		$stmt->bindValue(':image_share_key', $data['image_share_key'], PDO::PARAM_STR);
+		$stmt->bindValue(':image_order', $data['image_order'], PDO::PARAM_INT);
+		// Insert the data
+		$stmt->execute();
+		// Ask how many rows changed as a result of our insert
+		$rowsChanged = $stmt->rowCount();
+		// Close the database interaction
+		$stmt->closeCursor();
+		// Return the indication of success (rows changed)
+		return $rowsChanged;
+	}
+	catch (PDOException $e) {
+		echo 'Error connecting to DB.';
+		//print_e($e->getMessage(), $data);
+		exit;
+	}
 }
 
 // Update Image

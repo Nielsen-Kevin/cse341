@@ -33,6 +33,11 @@ class Upload {
 
 		if (!empty($_FILES[$name]['name']) && is_file($_FILES[$name]['tmp_name'])) {
 
+			// File size limit
+			if(filesize($_FILES[$name]['tmp_name']) >= 2000000) {
+				$this->error = 'Warning: Image size cannot exceed over 2 MB.';
+			}
+
 			// Validate the filename length
 			if ((utf8_strlen($this->filename) < 3) || (utf8_strlen($this->filename) > 255)) {
 				$this->error = 'Warning: Filename must be a between 3 and 255!';

@@ -14,12 +14,10 @@
 		<h1><?=$img['image_title']?></h1>
 		<p class="description"><?=$img['image_caption']?></p>
 		<div class="center">
-			<?=$img['album_id']?'<a href="?album='.$img['album_id'].'">Back to Album</a>':''?>	
+			<?=$img['album_id']?'<a href="?action=album&id='.$img['album_id'].'">Back to Album</a>':''?>
 		</div>
 	</div>
-	<?php if(!empty($img['image_share_key'])) {
-		echo '<input value="'.$img['image_share_key'].'">';
-	} ?>
+
 <?php } ?>
 
 </main>

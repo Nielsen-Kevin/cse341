@@ -34,7 +34,7 @@
 
 		<div class="field-group">
 			<label for="image_name">Image</label>
-			<input type="file" name="File" id="image_name">
+			<input type="file" name="File" id="image_name"> Size limited of 2 MB
 			<input type='hidden' name='image_name' value="<?=isset($image_name)?$image_name:''?>">
 			<span class="error"><?=isset($error_image_name)?'*':''?></span>
 		</div>

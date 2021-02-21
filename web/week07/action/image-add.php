@@ -52,7 +52,7 @@ do {
 		'image_name' => isset($filename) ? $filename : $image_name,
 		'image_private' => ($image_private == 1) ? true : false,
 		'image_share_key' => create_guid(),
-		'image_order' => $image_order,
+		'image_order' => (int)$image_order,
 	];
 
 	// Insert the document information to the database, get the result
