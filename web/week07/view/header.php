@@ -25,7 +25,7 @@
 	</header>
 	<nav>
 		<ul>
-			<li><a href="<?=HTTP_ROOT?>week07/?action=assignments" title="Assignments">CSE 341</a></li>
+			<li><a href="<?=HTTP_ROOT?>?action=assignments" title="Assignments">CSE 341</a></li>
 			<li><a href="<?=HTTP_ROOT?>week07/?action=album&id=1" title="Cart">Main</a></li>
 			<?php if(!empty($_SESSION['userData'])) { ?>
 				<li><a href="<?=HTTP_ROOT?>week07/?action=album-list"title="Admin">Admin</a></li>
